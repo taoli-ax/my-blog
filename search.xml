@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>article title</title>
+    <url>/2021/11/28/article-title/</url>
+    <content><![CDATA[<p>在很久很久以前</p>
+]]></content>
+      <categories>
+        <category>新技术</category>
+      </categories>
+      <tags>
+        <tag>github,hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>了解Decorator</title>
+    <url>/2021/11/28/deractor/</url>
+    <content><![CDATA[<p><font size=4> 1.装饰器是什么？ </font><br>@decorator</p>
+<p><font size=4>2.有什么作用？</font><br>项目中的主要用途：计算function的运算时间</p>
+<p><font size=4>3.如何写一个装饰器？</font><br>   例子：计算函数运行时间的装饰器demo</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment">#装饰器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">func</span>):</span><span class="comment">#1.装饰器参数func接收了一个函数句柄即：fun_a</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>():</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;start run&#x27;</span>)</span><br><span class="line">        func()<span class="comment"># 3.加上()展开了句柄func()</span></span><br><span class="line">        end = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;end run&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;函数运行时间是：%.8f&#x27;</span> % (end - start))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper <span class="comment"># 2.装饰器通过return来运行 wrapper()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#被装饰的函数</span></span><br><span class="line"><span class="meta">@decorator</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_a</span>():</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun_a()</span><br></pre></td></tr></table></figure>
+<blockquote class="pullquote"><p>输出：<br>start run<br>end run<br>函数运行时间是：1.00012064</p>
+<p>Process finished with exit code 0</p>
+</blockquote>
+
+<p><font size=4>4.如何写一个带参数的装饰器？</font><br>例子：定义一个装饰器控制函数运行次数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 外层参数n为控制fun_b运行次数，内层参数为fun_b的函数句柄</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span>(<span class="params">func</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>():</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                func()</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@decorator(<span class="params">n=<span class="number">2</span></span>)</span><span class="comment"># n=2表示一共要运行2次</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_b</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;function_run&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    fun_b()</span><br></pre></td></tr></table></figure>
+<blockquote class="pullquote"><p>function_run<br>function_run</p>
+<p>Process finished with exit code 0</p>
+</blockquote>
+
+<p>带参数的装饰器就是在装饰器函数再加一层而已，其他不变</p>
+]]></content>
+      <categories>
+        <category>python语法</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+</search>
