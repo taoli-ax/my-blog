@@ -81,13 +81,15 @@
 
 
 
-<meta name="description" content="python,django">
+<meta name="description" content="是一个活在2000年左右的人">
 <meta property="og:type" content="website">
-<meta property="og:title" content="技术博客">
-<meta property="og:url" content="http://taoli-ax.github.io/index.html">
+<meta property="og:title" content="about">
+<meta property="og:url" content="http://taoli-ax.github.io/about/index.html">
 <meta property="og:site_name" content="技术博客">
-<meta property="og:description" content="python,django">
+<meta property="og:description" content="是一个活在2000年左右的人">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-28T15:42:18.000Z">
+<meta property="article:modified_time" content="2021-11-28T15:42:52.767Z">
 <meta property="article:author" content="tolle">
 <meta property="article:tag" content="python,">
 <meta name="twitter:card" content="summary">
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://taoli-ax.github.io/"/>
+  <link rel="canonical" href="http://taoli-ax.github.io/about/"/>
 
 
 
 
 
-  <title>技术博客</title>
+  <title>about | 技术博客</title>
   
 
 
@@ -145,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -283,309 +284,38 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://taoli-ax.github.io/2021/11/28/deractor/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/themes/next/source/images/avatar_hexo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术博客">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/28/deractor/" itemprop="url">了解Decorator</a></h1>
-        
+	<h1 class="post-title" itemprop="name headline">about</h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-28T20:37:10+08:00">
-                2021-11-28
-              </time>
-            
 
-            
 
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">python语法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
       
-
       
+      <div class="post-body">
         
-          
-            <p>1.装饰器是什么？<br>@decorator</p>
-<p>2.有什么作用？<br>项目中的主要用途：计算function的运算时间</p>
-<p>3.如何写一个装饰器？<br>   例子：计算函数运行时间的装饰器demo</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment">#装饰器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">func</span>):</span><span class="comment">#1.装饰器参数func接收了一个函数句柄即：fun_a</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>():</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;start run&#x27;</span>)</span><br><span class="line">        func()<span class="comment"># 3.加上()展开了句柄func()</span></span><br><span class="line">        end = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;end run&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;函数运行时间是：%.8f&#x27;</span> % (end - start))</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line">    <span class="keyword">return</span> wrapper <span class="comment"># 2.装饰器通过return来运行 wrapper()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#被装饰的函数</span></span><br><span class="line"><span class="meta">@decorator</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_a</span>():</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun_a()</span><br></pre></td></tr></table></figure>
-<blockquote class="pullquote"><p>输出：<br>start run<br>end run<br>函数运行时间是：1.00012064</p>
-<p>Process finished with exit code 0</p>
-</blockquote>
-
-<p>4.如何写一个带参数的装饰器？<br>例子：定义一个装饰器控制函数运行次数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 外层参数n为控制fun_b运行次数，内层参数为fun_b的函数句柄</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span>(<span class="params">func</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>():</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                func()</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@decorator(<span class="params">n=<span class="number">2</span></span>)</span><span class="comment"># n=2表示一共要运行2次</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_b</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;function_run&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    fun_b()</span><br></pre></td></tr></table></figure>
-<blockquote class="pullquote"><p>function_run<br>function_run</p>
-<p>Process finished with exit code 0</p>
-</blockquote>
-
-<p>带参数的装饰器就是在装饰器函数再加一层而已，其他不变</p>
-
-          
         
+          <p>是一个活在2000年左右的人</p>
+
+        
+      </div>
+      
+      
       
     </div>
     
     
     
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://taoli-ax.github.io/2021/11/28/article-title/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/themes/next/source/images/avatar_hexo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/28/article-title/" itemprop="url">article title</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-28T19:57:11+08:00">
-                2021-11-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%96%B0%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">新技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在很久很久以前</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -593,6 +323,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -825,6 +559,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

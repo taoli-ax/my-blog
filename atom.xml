@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>技术博客</title>
+  
+  <subtitle>分享精神</subtitle>
+  <link href="http://taoli-ax.github.io/atom.xml" rel="self"/>
+  
+  <link href="http://taoli-ax.github.io/"/>
+  <updated>2021-11-28T15:44:40.000Z</updated>
+  <id>http://taoli-ax.github.io/</id>
+  
+  <author>
+    <name>tolle</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>了解Decorator</title>
+    <link href="http://taoli-ax.github.io/2021/11/28/deractor/"/>
+    <id>http://taoli-ax.github.io/2021/11/28/deractor/</id>
+    <published>2021-11-28T12:37:10.000Z</published>
+    <updated>2021-11-28T15:44:40.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;1.装饰器是什么？&lt;br&gt;@decorator&lt;/p&gt;
+&lt;p&gt;2.有什么作用？&lt;br&gt;项目中的主要用途：计算function的运算时间&lt;/p&gt;
+&lt;p&gt;3.如何写一个装饰器？&lt;br&gt;   例子：计算函数运行时间的装饰器demo&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="python语法" scheme="http://taoli-ax.github.io/categories/python%E8%AF%AD%E6%B3%95/"/>
+    
+    
+    <category term="python" scheme="http://taoli-ax.github.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>article title</title>
+    <link href="http://taoli-ax.github.io/2021/11/28/article-title/"/>
+    <id>http://taoli-ax.github.io/2021/11/28/article-title/</id>
+    <published>2021-11-28T11:57:11.000Z</published>
+    <updated>2021-11-28T15:41:49.925Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在很久很久以前&lt;/p&gt;
+</summary>
+        
+      
+    
+    
+    
+    <category term="新技术" scheme="http://taoli-ax.github.io/categories/%E6%96%B0%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="github,hexo" scheme="http://taoli-ax.github.io/tags/github-hexo/"/>
+    
+  </entry>
+  
+</feed>
