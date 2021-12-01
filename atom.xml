@@ -6,7 +6,7 @@
   <link href="http://taoli-ax.github.io/atom.xml" rel="self"/>
   
   <link href="http://taoli-ax.github.io/"/>
-  <updated>2021-11-28T15:51:47.659Z</updated>
+  <updated>2021-12-01T17:10:15.567Z</updated>
   <id>http://taoli-ax.github.io/</id>
   
   <author>
@@ -17,6 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>jenkins_install_deploy</title>
+    <link href="http://taoli-ax.github.io/2021/12/02/jenkins-install-deploy/"/>
+    <id>http://taoli-ax.github.io/2021/12/02/jenkins-install-deploy/</id>
+    <published>2021-12-01T16:08:08.000Z</published>
+    <updated>2021-12-01T17:10:15.567Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;br&gt;
+&lt;font size=&quot;4&quot;&gt; 
+虚拟机安装了 Centos7
+官网有安装命令可以直接输入，省略 &lt;/font&gt; &lt;br&gt;
+&lt;font size=&quot;4&quot;&gt; 
+启动jenkins : 
+&lt;/font&gt; 
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>了解Decorator</title>
     <link href="http://taoli-ax.github.io/2021/11/28/deractor/"/>
     <id>http://taoli-ax.github.io/2021/11/28/deractor/</id>
@@ -24,9 +52,9 @@
     <updated>2021-11-28T15:51:47.659Z</updated>
     
     
-    <summary type="html">&lt;p&gt;&lt;font size=4&gt; 1.装饰器是什么？ &lt;/font&gt;&lt;br&gt;@decorator&lt;/p&gt;
-&lt;p&gt;&lt;font size=4&gt;2.有什么作用？&lt;/font&gt;&lt;br&gt;项目中的主要用途：计算function的运算时间&lt;/p&gt;
-&lt;p&gt;&lt;font size=4&gt;3.如何写一个装饰器？&lt;/font&gt;&lt;br&gt;   例子：计算函数运行时间的装饰器demo&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;&lt;font size=&quot;4&quot;&gt; 1.装饰器是什么？ &lt;/font&gt;&lt;br&gt;@decorator&lt;/p&gt;
+&lt;p&gt;&lt;font size=&quot;4&quot;&gt;2.有什么作用？&lt;/font&gt;&lt;br&gt;项目中的主要用途：计算function的运算时间&lt;/p&gt;
+&lt;p&gt;&lt;font size=&quot;4&quot;&gt;3.如何写一个装饰器？&lt;/font&gt;&lt;br&gt;   例子：计算函数运行时间的装饰器demo&lt;/p&gt;</summary>
     
     
     

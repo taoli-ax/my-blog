@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: github,hexo | 技术博客</title>
+  <title>jenkins_install_deploy | 技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -50,39 +50,83 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/11/28/article-title/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-11-28T11:57:11.000Z" itemprop="datePublished">Nov 28</time>
+        <section id="main"><article id="post-jenkins-install-deploy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/02/jenkins-install-deploy/" class="article-date">
+  <time class="dt-published" datetime="2021-12-01T16:08:08.000Z" itemprop="datePublished">2021-12-02</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/28/article-title/">article title</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      jenkins_install_deploy
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <br>
+<font size="4"> 
+虚拟机安装了 Centos7
+官网有安装命令可以直接输入，省略 </font> <br>
+<font size="4"> 
+启动jenkins : 
+</font> 
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# service jenkins start</span><br><span class="line">Starting jenkins (via systemctl):                          [  确定  ]</span><br></pre></td></tr></table></figure>
+<br>
+<font size="4"> 
+但是宿主机无法访问jenkins
+why?黑人脸</font> <br>
+
+<p><font size="4"> 因为防火墙没有关闭！顺手关闭开机启动</font> <br><br><font size="4"> 赶紧输入：</font> <br></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service</span><br><span class="line">systemctl disable firewalld.service</span><br></pre></td></tr></table></figure>
+
+<br>
+<font size="4">解决了，访问成功如图：</font> <br>
+<blockquote class="pullquote"><p><img src="/2021/12/02/jenkins-install-deploy/jenkins_started.jpg" alt="jenkins_started"></p>
+</blockquote>
+
+<p>输入密码，默认密码哦！</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/lib/jenkins/secrets/initialAdminPassword</span><br></pre></td></tr></table></figure>
+<br>
+<font size="4">选推荐就可以了</font>
+
+<p><img src="/2021/12/02/jenkins-install-deploy/password_entry.png" alt="password_entry"><br><br><br><font size="4">进度条君漫长的等待中，大约半小时吧我猜的</font></p>
+<p><img src="/2021/12/02/jenkins-install-deploy/process_bar.jpg" alt="process_bar"></p>
+<p><font size="4">完成安装了，开始浪吧</font></p>
+<p><img src="/2021/12/02/jenkins-install-deploy/complete_install.jpg" alt="complete_install"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://taoli-ax.github.io/2021/12/02/jenkins-install-deploy/" data-id="ckwnscg04000ddkuxbnzx7q6t" data-title="jenkins_install_deploy" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/11/28/deractor/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">了解Decorator</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
 
 </section>
         <aside id="sidebar">
