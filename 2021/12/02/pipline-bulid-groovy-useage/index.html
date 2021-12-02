@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Centos7虚拟机部署jenkins | 技术博客</title>
+  <title>pipeline build &amp; groovy useage | 技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -50,10 +50,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-jenkins-install-deploy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-pipline-bulid-groovy-useage" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/12/02/jenkins-install-deploy/" class="article-date">
-  <time class="dt-published" datetime="2021-12-01T16:08:08.000Z" itemprop="datePublished">2021-12-02</time>
+    <a href="/2021/12/02/pipline-bulid-groovy-useage/" class="article-date">
+  <time class="dt-published" datetime="2021-12-02T04:57:30.000Z" itemprop="datePublished">2021-12-02</time>
 </a>
     
   </div>
@@ -64,7 +64,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Centos7虚拟机部署jenkins
+      pipeline build &amp; groovy useage
     </h1>
   
 
@@ -72,41 +72,24 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <br>
-<font size="4"> 
-虚拟机已安装了 Centos7操作系统,省略<br>
-jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </font> <br>
-<font size="4"> 
-启动jenkins : 
-</font> 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# service jenkins start</span><br><span class="line">Starting jenkins (via systemctl):                          [  确定  ]</span><br></pre></td></tr></table></figure>
-<br>
-<font size="4"> 
-但是宿主机无法访问jenkins
-why?黑人脸</font> <br>
-
-<p><font size="4"> 因为防火墙没有关闭！顺手关闭开机启动</font> <br><br><font size="4"> 赶紧输入：</font> <br></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service</span><br><span class="line">systemctl disable firewalld.service</span><br></pre></td></tr></table></figure>
-
-<br>
-<font size="4">解决了，访问成功如图：</font> <br>
-<blockquote class="pullquote"><p><img src="/2021/12/02/jenkins-install-deploy/jenkins_started.jpg" alt="jenkins_started"></p>
+        <p><i>前提： 已安装 <code>pipline plugin</code></i></p>
+<p><font size="4" clolr="blue">新建item &gt; 选择type为Pipline或流水线 &gt; 流水线script里写一段脚本(页面最下方的,选pipline script)</font></p>
+<p><b>举个例子demo:</b></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers&#123;</span><br><span class="line">          pollSCM(<span class="string">&#x27;H H(9-16)/2 * * 1-5&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Build Scenario&#x27;</span>)&#123;</span><br><span class="line">            steps&#123;</span><br><span class="line">               println <span class="string">&#x27;build&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&quot;Test Scenario&quot;</span>)&#123;</span><br><span class="line">            steps&#123;</span><br><span class="line">                println <span class="string">&#x27;Test&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&quot;Deploy Scenario&quot;</span>)&#123;</span><br><span class="line">            steps&#123;</span><br><span class="line">                println <span class="string">&quot;Deploy&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解释一下’H H(9-16)/2 * * 1-5’<br>H 哈希值<br>H(9-16)/2 9点到16点，每隔2小时</p>
+<ul>
+<li>每天 *每月<br>1-5 周一到周五</li>
+</ul>
+<p>脚本写好，让我们来build now<br>oops!!!<br>build now 报错了<br>pipline插件没装完整？一起来debug<br>1.安装所有插件,等待的同时，网上看看资料，有没有相同情况<br>额发现了一个低级错误 ：|<br>一篇文章中这么写道：java.lang.NoSuchMethodError: No such DSL method ‘agent’ found among steps<br>引发我的联想 ‘agent’ 就是出错的地方啊，我的报错是这样：java.lang.NoSuchMethodError: No such DSL method ‘pipline’ found among steps<br>会不会是我单词写错了？？？<br>oh ! 还真是写错了，应该是pipeline,写错成 pipline,额，可能是pip install 用多了吧</p>
+<p>再次构建，成功了！</p>
+<blockquote class="pullquote"><p><img src="/2021/12/02/pipline-bulid-groovy-useage/oops.jpg" alt="oops"><br>前9次失败</p>
 </blockquote>
 
-<p><font size="4">输入密码，默认密码哦！</font></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/lib/jenkins/secrets/initialAdminPassword</span><br></pre></td></tr></table></figure>
-<br>
-<font size="4">下一步，选推荐就可以了</font>
-
-<p><img src="/2021/12/02/jenkins-install-deploy/password_entry.png" alt="password_entry"><br><br><br><font size="4">进度条君漫长的等待中，大约半小时吧我猜的</font></p>
-<p><img src="/2021/12/02/jenkins-install-deploy/process_bar.jpg" alt="process_bar"></p>
-<p><font size="4">完成安装了，开始浪吧</font></p>
-<p><img src="/2021/12/02/jenkins-install-deploy/complete_install.jpg" alt="complete_install"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/02/jenkins-install-deploy/" data-id="ckwp2hvct0007k0uxhdi0gief" data-title="Centos7虚拟机部署jenkins" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/02/pipline-bulid-groovy-useage/" data-id="ckwp2hvcz000kk0uxbupqh34o" data-title="pipeline build &amp; groovy useage" class="article-share-link">Share</a>
       
       
       
@@ -116,19 +99,10 @@ why?黑人脸</font> <br>
     
 <nav id="article-nav">
   
-    <a href="/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Centos7虚拟机下groovy安装
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/11/28/deractor/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/12/02/jenkins-plugins-speed-increse/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">了解Decorator</div>
+      <div class="article-nav-title">jenkins plugins speed increase</div>
     </a>
   
 </nav>

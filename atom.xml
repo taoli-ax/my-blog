@@ -6,7 +6,7 @@
   <link href="http://taoli-ax.github.io/atom.xml" rel="self"/>
   
   <link href="http://taoli-ax.github.io/"/>
-  <updated>2021-12-02T04:25:59.497Z</updated>
+  <updated>2021-12-02T14:42:35.572Z</updated>
   <id>http://taoli-ax.github.io/</id>
   
   <author>
@@ -15,6 +15,49 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pipeline build &amp; groovy useage</title>
+    <link href="http://taoli-ax.github.io/2021/12/02/pipline-bulid-groovy-useage/"/>
+    <id>http://taoli-ax.github.io/2021/12/02/pipline-bulid-groovy-useage/</id>
+    <published>2021-12-02T04:57:30.000Z</published>
+    <updated>2021-12-02T14:42:35.572Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;i&gt;前提： 已安装 &lt;code&gt;pipline plugin&lt;/code&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font size=&quot;4&quot; clolr=&quot;blue&quot;&gt;新建item &amp;gt; 选择type为Pipline或流水线 &amp;gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>jenkins plugins speed increase</title>
+    <link href="http://taoli-ax.github.io/2021/12/02/jenkins-plugins-speed-increse/"/>
+    <id>http://taoli-ax.github.io/2021/12/02/jenkins-plugins-speed-increse/</id>
+    <published>2021-12-02T04:27:04.000Z</published>
+    <updated>2021-12-02T04:58:17.591Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;font</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Centos7虚拟机下groovy安装</title>

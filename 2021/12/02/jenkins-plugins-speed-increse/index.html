@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2021/12 | 技术博客</title>
+  <title>jenkins plugins speed increase | 技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -50,96 +50,65 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/12/02/pipline-bulid-groovy-useage/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-12-02T04:57:30.000Z" itemprop="datePublished">Dec 2</time>
+        <section id="main"><article id="post-jenkins-plugins-speed-increse" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/02/jenkins-plugins-speed-increse/" class="article-date">
+  <time class="dt-published" datetime="2021-12-02T04:27:04.000Z" itemprop="datePublished">2021-12-02</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/02/pipline-bulid-groovy-useage/">pipeline build &amp; groovy useage</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      jenkins plugins speed increase
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/12/02/jenkins-plugins-speed-increse/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-12-02T04:27:04.000Z" itemprop="datePublished">Dec 2</time>
-</a>
+    <div class="e-content article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/02/jenkins-plugins-speed-increse/">jenkins plugins speed increase</a>
-    </h1>
-  
+        <p><font size="4">jenkins插件下载一般都很慢，防火墙太强</font></p>
+<p>解决方法是<code>替换镜像源</code><br><i>1.首先到jenkins的默认工作目录下</i><br><i>2.然后用sed命令</i></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost etc]# cd /var/lib/jenkins/updates/</span><br><span class="line">[root@localhost updates]# sed -i &#x27;s/http:\/\/updates.jenkins-ci.org\/download/https:\/\/mirrors.tuna.tsinghua.edu.cn\/jenkins/g&#x27; default.json &amp;&amp; sed -i &#x27;s/http:\/\/www.google.com/https:\/\/www.baidu.com/g&#x27; default.json</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-12-01T17:22:08.000Z" itemprop="datePublished">Dec 2</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/">Centos7虚拟机下groovy安装</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/12/02/jenkins-install-deploy/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-12-01T16:08:08.000Z" itemprop="datePublished">Dec 2</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://taoli-ax.github.io/2021/12/02/jenkins-plugins-speed-increse/" data-id="ckwp2hvcu0008k0uxf4h4dyno" data-title="jenkins plugins speed increase" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/02/jenkins-install-deploy/">Centos7虚拟机部署jenkins</a>
-    </h1>
-  
-
-    </header>
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/12/02/pipline-bulid-groovy-useage/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          pipeline build &amp; groovy useage
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Centos7虚拟机下groovy安装</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
 
 </section>
         <aside id="sidebar">
