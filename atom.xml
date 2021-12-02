@@ -6,7 +6,7 @@
   <link href="http://taoli-ax.github.io/atom.xml" rel="self"/>
   
   <link href="http://taoli-ax.github.io/"/>
-  <updated>2021-12-01T17:13:03.541Z</updated>
+  <updated>2021-12-02T04:25:59.497Z</updated>
   <id>http://taoli-ax.github.io/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Centos7虚拟机下groovy安装</title>
+    <link href="http://taoli-ax.github.io/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/"/>
+    <id>http://taoli-ax.github.io/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/</id>
+    <published>2021-12-01T17:22:08.000Z</published>
+    <updated>2021-12-02T04:25:59.497Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;安装命令&lt;br&gt;curl -s get.sdkman.io | bash&lt;br&gt;source “/root/.sdkman/bin/sdkman-init.sh”&lt;br&gt;sdk install groovy&lt;/p&gt;
+&lt;p&gt;检查版本&lt;br&gt; &lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="测试右移" scheme="http://taoli-ax.github.io/categories/%E6%B5%8B%E8%AF%95%E5%8F%B3%E7%A7%BB/"/>
+    
+    
+    <category term="Centos7  Groovy" scheme="http://taoli-ax.github.io/tags/Centos7-Groovy/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Centos7虚拟机部署jenkins</title>
     <link href="http://taoli-ax.github.io/2021/12/02/jenkins-install-deploy/"/>
     <id>http://taoli-ax.github.io/2021/12/02/jenkins-install-deploy/</id>
     <published>2021-12-01T16:08:08.000Z</published>
-    <updated>2021-12-01T17:13:03.541Z</updated>
+    <updated>2021-12-01T17:20:30.018Z</updated>
     
     
       
@@ -30,12 +56,11 @@
         
     <summary type="html">&lt;br&gt;
 &lt;font size=&quot;4&quot;&gt; 
-虚拟机安装了 Centos7
-官网有安装命令可以直接输入，省略 &lt;/font&gt; &lt;br&gt;
+虚拟机已安装了 Centos7操作系统,省略&lt;br&gt;
+jenkins官网有基于Centos的安装命令，您可以直接输入，省略 &lt;/font&gt; &lt;br&gt;
 &lt;font size=&quot;4&quot;&gt; 
 启动jenkins : 
-&lt;/font&gt; 
-&lt;figure class=&quot;highlight</summary>
+&lt;/font&gt;</summary>
         
       
     

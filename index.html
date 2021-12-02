@@ -52,6 +52,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Centos7下groovy安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/" class="article-date">
+  <time class="dt-published" datetime="2021-12-01T17:22:08.000Z" itemprop="datePublished">2021-12-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B5%8B%E8%AF%95%E5%8F%B3%E7%A7%BB/">测试右移</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/">Centos7虚拟机下groovy安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>安装命令<br>curl -s get.sdkman.io | bash<br>source “/root/.sdkman/bin/sdkman-init.sh”<br>sdk install groovy</p>
+<p>检查版本<br> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# groovy --version</span><br><span class="line">Groovy Version: 3.0.9 JVM: 11.0.13 Vendor: Red Hat, Inc. OS: Linux</span><br></pre></td></tr></table></figure></p>
+<p>设置环境变量<br>export GROOVY_HOME=/usr/local/groovy-3.0.9<br>export PATH=${GROOVY_HOME}/bin:${PATH}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://taoli-ax.github.io/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/" data-id="ckwoc6bqb0000x8uxaw97d0n6" data-title="Centos7虚拟机下groovy安装" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Centos7-Groovy/" rel="tag">Centos7  Groovy</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-jenkins-install-deploy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/12/02/jenkins-install-deploy/" class="article-date">
@@ -76,8 +123,8 @@
       
         <br>
 <font size="4"> 
-虚拟机安装了 Centos7
-官网有安装命令可以直接输入，省略 </font> <br>
+虚拟机已安装了 Centos7操作系统,省略<br>
+jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </font> <br>
 <font size="4"> 
 启动jenkins : 
 </font> 
@@ -95,10 +142,10 @@ why?黑人脸</font> <br>
 <blockquote class="pullquote"><p><img src="/2021/12/02/jenkins-install-deploy/jenkins_started.jpg" alt="jenkins_started"></p>
 </blockquote>
 
-<p>输入密码，默认密码哦！</p>
+<p><font size="4">输入密码，默认密码哦！</font></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/lib/jenkins/secrets/initialAdminPassword</span><br></pre></td></tr></table></figure>
 <br>
-<font size="4">选推荐就可以了</font>
+<font size="4">下一步，选推荐就可以了</font>
 
 <p><img src="/2021/12/02/jenkins-install-deploy/password_entry.png" alt="password_entry"><br><br><br><font size="4">进度条君漫长的等待中，大约半小时吧我猜的</font></p>
 <p><img src="/2021/12/02/jenkins-install-deploy/process_bar.jpg" alt="process_bar"></p>
@@ -224,7 +271,7 @@ why?黑人脸</font> <br>
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-hexo/" rel="tag">github,hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7-Groovy/" rel="tag">Centos7  Groovy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-hexo/" rel="tag">github,hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
     </div>
   </div>
 
@@ -235,6 +282,10 @@ why?黑人脸</font> <br>
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/">Centos7虚拟机下groovy安装</a>
+          </li>
         
           <li>
             <a href="/2021/12/02/jenkins-install-deploy/">Centos7虚拟机部署jenkins</a>
@@ -257,7 +308,7 @@ why?黑人脸</font> <br>
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/python%E8%AF%AD%E6%B3%95/">python语法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%B0%E6%8A%80%E6%9C%AF/">新技术</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/python%E8%AF%AD%E6%B3%95/">python语法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%B0%E6%8A%80%E6%9C%AF/">新技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B5%8B%E8%AF%95%E5%8F%B3%E7%A7%BB/">测试右移</a></li></ul>
     </div>
   </div>
 

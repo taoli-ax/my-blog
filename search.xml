@@ -44,8 +44,8 @@
     <url>/2021/12/02/jenkins-install-deploy/</url>
     <content><![CDATA[<br>
 <font size="4"> 
-虚拟机安装了 Centos7
-官网有安装命令可以直接输入，省略 </font> <br>
+虚拟机已安装了 Centos7操作系统,省略<br>
+jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </font> <br>
 <font size="4"> 
 启动jenkins : 
 </font> 
@@ -63,15 +63,29 @@ why?黑人脸</font> <br>
 <blockquote class="pullquote"><p><img src="/2021/12/02/jenkins-install-deploy/jenkins_started.jpg" alt="jenkins_started"></p>
 </blockquote>
 
-<p>输入密码，默认密码哦！</p>
+<p><font size="4">输入密码，默认密码哦！</font></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat /var/lib/jenkins/secrets/initialAdminPassword</span><br></pre></td></tr></table></figure>
 <br>
-<font size="4">选推荐就可以了</font>
+<font size="4">下一步，选推荐就可以了</font>
 
 <p><img src="/2021/12/02/jenkins-install-deploy/password_entry.png" alt="password_entry"><br><br><br><font size="4">进度条君漫长的等待中，大约半小时吧我猜的</font></p>
 <p><img src="/2021/12/02/jenkins-install-deploy/process_bar.jpg" alt="process_bar"></p>
 <p><font size="4">完成安装了，开始浪吧</font></p>
 <p><img src="/2021/12/02/jenkins-install-deploy/complete_install.jpg" alt="complete_install"></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Centos7虚拟机下groovy安装</title>
+    <url>/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>安装命令<br>curl -s get.sdkman.io | bash<br>source “/root/.sdkman/bin/sdkman-init.sh”<br>sdk install groovy</p>
+<p>检查版本<br> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# groovy --version</span><br><span class="line">Groovy Version: 3.0.9 JVM: 11.0.13 Vendor: Red Hat, Inc. OS: Linux</span><br></pre></td></tr></table></figure></p>
+<p>设置环境变量<br>export GROOVY_HOME=/usr/local/groovy-3.0.9<br>export PATH=${GROOVY_HOME}/bin:${PATH}</p>
+]]></content>
+      <categories>
+        <category>测试右移</category>
+      </categories>
+      <tags>
+        <tag>Centos7  Groovy</tag>
+      </tags>
   </entry>
 </search>
