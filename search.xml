@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>article title</title>
-    <url>/2021/11/28/article-title/</url>
-    <content><![CDATA[<p>在很久很久以前</p>
-]]></content>
-      <categories>
-        <category>新技术</category>
-      </categories>
-      <tags>
-        <tag>github,hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Centos7虚拟机下groovy安装</title>
     <url>/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<p>安装命令<br>curl -s get.sdkman.io | bash<br>source “/root/.sdkman/bin/sdkman-init.sh”<br>sdk install groovy</p>
@@ -27,6 +15,84 @@
       </tags>
   </entry>
   <entry>
+    <title>win10安装 Pact-python</title>
+    <url>/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>这是一次特殊的安装，拜老大哥所赐<br>这一次不能用pip install,让你们一起见证一下大型超时现场</p>
+<p><img src="/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/time_out.jpg" alt="time_out"></p>
+<span id="more"></span>
+<p>放弃pip,直奔官网<br><code>https://pypi.org/project/pact-python</code></p>
+<p>下载文件到电脑任意位置，不用放到site-packages里<br>文件名 <code>pact-python-1.4.5.tar.gz</code></p>
+<p>解压，解压，两次，然后看到同名文件夹pact-python-1.4.5<br>然后打开cmd到文件所在位置，这里教大家一点小技巧<br>在导航栏里输入cmd，直接到达该位置，是不是很神奇，呵呵</p>
+<p><img src="/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/cmd.jpg" alt="cmd"></p>
+<p>接着输入两行命令 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python setup.py build</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
+<p>如下图</p>
+<p><img src="/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/twosetps-build.jpg" alt="twosetps-build"></p>
+<p><img src="/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/twosteps-install.jpg" alt="twosteps-install"></p>
+<p>顺便检查一下是否真的安装成功了，混个脸熟，呵呵<br>pact在你的本地python site-packages,刚刚你执行成功的日志也有写里，可以看一下</p>
+<p><img src="/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/check.jpg" alt="check"></p>
+<p>到此为止，安装算是ok了！</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Centos7 安装docker</title>
+    <url>/2021/12/03/Centos7-%E5%AE%89%E8%A3%85docker/</url>
+    <content><![CDATA[<ol>
+<li>安装网络相关命令：yum install net-tools</li>
+<li>安装实用工具：yum install -y yum-utils device-mapper-persistent-data lvm2</li>
+<li>添加yum镜像：yum-config-manager –add-repo <a href="http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></li>
+<li>更新yum缓存：yum makecache fast</li>
+<li>安装docker-ce：yum -y install docker-ce</li>
+<li>启动docker服务：systemctl start docker， 对应的还有stop, restart等 </li>
+<li>查看docker信息：docker info</li>
+<li>查找centos可用镜像：docker search centos</li>
+<li>镜像仓库地址：<a href="https://hub.docker.com/">https://hub.docker.com</a>    <a href="https://hub.daocloud.io/">https://hub.daocloud.io</a></li>
+<li>注意事项：建议在CentOS 7版本上安装Docker，确保有足够的硬盘空间，确保内存和CPU资源足够。</li>
+<li>查看Docker服务，systemctl list-unit-files | grep docker， 如果显示disabled, 说明Docker服务不会随操作系统的启动而自动启动。systemctl enable docker</li>
+</ol>
+<p>cp 宿主机文件名:容器目录/文件名 容器hostname</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>了解Decorator</title>
+    <url>/2021/11/28/deractor/</url>
+    <content><![CDATA[<p><font size="4"> 1.装饰器是什么？ </font><br>@decorator</p>
+<p><font size="4">2.有什么作用？</font><br>项目中的主要用途：计算function的运算时间</p>
+<p><font size="4">3.如何写一个装饰器？</font><br>   例子：计算函数运行时间的装饰器demo</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment">#装饰器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">func</span>):</span><span class="comment">#1.装饰器参数func接收了一个函数句柄即：fun_a</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>():</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;start run&#x27;</span>)</span><br><span class="line">        func()<span class="comment"># 3.加上()展开了句柄func()</span></span><br><span class="line">        end = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;end run&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;函数运行时间是：%.8f&#x27;</span> % (end - start))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper <span class="comment"># 2.装饰器通过return来运行 wrapper()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#被装饰的函数</span></span><br><span class="line"><span class="meta">@decorator</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_a</span>():</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun_a()</span><br></pre></td></tr></table></figure>
+<blockquote class="pullquote"><p>输出：<br>start run<br>end run<br>函数运行时间是：1.00012064</p>
+<p>Process finished with exit code 0</p>
+</blockquote>
+
+<p><font size="4">4.如何写一个带参数的装饰器？</font><br>例子：定义一个装饰器控制函数运行次数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 外层参数n为控制fun_b运行次数，内层参数为fun_b的函数句柄</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span>(<span class="params">func</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>():</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                func()</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@decorator(<span class="params">n=<span class="number">2</span></span>)</span><span class="comment"># n=2表示一共要运行2次</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_b</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;function_run&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    fun_b()</span><br></pre></td></tr></table></figure>
+<blockquote class="pullquote"><p>function_run<br>function_run</p>
+<p>Process finished with exit code 0</p>
+</blockquote>
+
+<p>带参数的装饰器就是在装饰器函数再加一层而已，其他不变</p>
+]]></content>
+      <categories>
+        <category>python语法</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>article title</title>
+    <url>/2021/11/28/article-title/</url>
+    <content><![CDATA[<p>在很久很久以前</p>
+]]></content>
+      <categories>
+        <category>新技术</category>
+      </categories>
+      <tags>
+        <tag>github,hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Centos7虚拟机部署jenkins</title>
     <url>/2021/12/02/jenkins-install-deploy/</url>
     <content><![CDATA[<br>
@@ -38,6 +104,7 @@ jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </f
 </font> 
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# service jenkins start</span><br><span class="line">Starting jenkins (via systemctl):                          [  确定  ]</span><br></pre></td></tr></table></figure>
 <br>
+<span id="more"></span>
 <font size="4"> 
 但是宿主机无法访问jenkins
 why?黑人脸</font> <br>
@@ -70,31 +137,40 @@ why?黑人脸</font> <br>
 ]]></content>
   </entry>
   <entry>
-    <title>了解Decorator</title>
-    <url>/2021/11/28/deractor/</url>
-    <content><![CDATA[<p><font size="4"> 1.装饰器是什么？ </font><br>@decorator</p>
-<p><font size="4">2.有什么作用？</font><br>项目中的主要用途：计算function的运算时间</p>
-<p><font size="4">3.如何写一个装饰器？</font><br>   例子：计算函数运行时间的装饰器demo</p>
-<span id="more"></span>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment">#装饰器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">func</span>):</span><span class="comment">#1.装饰器参数func接收了一个函数句柄即：fun_a</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>():</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;start run&#x27;</span>)</span><br><span class="line">        func()<span class="comment"># 3.加上()展开了句柄func()</span></span><br><span class="line">        end = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;end run&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;函数运行时间是：%.8f&#x27;</span> % (end - start))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper <span class="comment"># 2.装饰器通过return来运行 wrapper()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#被装饰的函数</span></span><br><span class="line"><span class="meta">@decorator</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_a</span>():</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun_a()</span><br></pre></td></tr></table></figure>
-<blockquote class="pullquote"><p>输出：<br>start run<br>end run<br>函数运行时间是：1.00012064</p>
-<p>Process finished with exit code 0</p>
-</blockquote>
+    <title>pinpoint部署</title>
+    <url>/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<p>这几天为了面试又学习了一些新知识</p>
+<p>1.pact工具<br>2.pinpoint工具<br>3.paramiko库操作ssh<br>4.jmeter插件使用<br>5.jenkins操作ssh发送文件</p>
+<p>今天先来说pinpoint，用于微服务架构项目的性能测试</p>
+<p>痛点：微服务架构服务调用多，不易管理，无法做到只对某几个接口/服务进行测试<br>pinpoint理念：基于对全局的监控，只要有流量，就能实时监控到接口的运行时间，测试图表和数据展示非常详细，甚至sql语句的执行时间都能清晰看到<br>提醒：本教程是参考于网络，并只是一个demo，并不是真正的生产环境部署，自学部署pinpoint，至少让自己不陌生，仅此而已</p>
+<p><font size="4">1.材料准备：</font><br>pinpoint github的历史版本浏览 <i> <a href="https://github.com/pinpoint-apm/pinpoint/releases">https://github.com/pinpoint-apm/pinpoint/releases</a> </i><br>这三个包需要下载<br><img src="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/download.jpg" alt="download"></p>
+<p>hbase数据库： <i><a href="https://archive.apache.org/dist/hbase/">https://archive.apache.org/dist/hbase/</a></i><br><img src="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/hbaseCap.jpg" alt="hbaseCap"></p>
+<p>虚拟机准备： <i><a href="https://mirrors.tuna.tsinghua.edu.cn/centos/7.9.2009/isos/x86_64/">https://mirrors.tuna.tsinghua.edu.cn/centos/7.9.2009/isos/x86_64/</a></i><br>这里使用了centos7 其他版本未知</p>
+<p><font size="4">2.提前部署：</font><br>虚拟机和jdk1.8已安装<br>MobaXterm已远程ssh连接虚拟机</p>
+<p><font size="4">3.开始部署：</font></p>
+<p><font size="3">3.1上传文件到虚拟机并配置JAVA_HOME：</font></p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[root@localhost /]# mkdir data</span><br><span class="line">[root@localhost data]# ll</span><br><span class="line">-rw-r--r--. 1 root root   9277365 Dec 8 12:32 apache-tomcat-8.0.36.tar.gz</span><br><span class="line">-rw-r--r--. 1 root root 103847513 Dec 8 12:32 hbase-1.0.3-bin.tar.gz</span><br><span class="line">-rw-r--r--. 1 root root   6621915 Dec 8 12:32 pinpoint-agent-1.5.2.tar.gz</span><br><span class="line">-rw-r--r--. 1 root root  31339914 Dec 8 12:32 pinpoint-collector-1.5.2.war</span><br><span class="line">-rw-r--r--. 1 root root  54505168 Dec 8 12:32 pinpoint-web-1.5.2.war</span><br><span class="line">-rw-r--r--. 1 root root  17699306 Dec 8 12:32 zookeeper-3.4.6.tar.gz</span><br><span class="line"></span><br><span class="line">[root@localhost /] cd /</span><br><span class="line">[root@localhost /]# which java</span><br><span class="line">/usr/bin/java</span><br><span class="line">[root@localhost /]# ls -lrt /usr/bin/java</span><br><span class="line">lrwxrwxrwx. 1 root root 22 Oct 25 14:51 /usr/bin/java -&gt; /etc/alternatives/java</span><br><span class="line"></span><br><span class="line">[root@localhost /]# ls -lrt /etc/alternatives/java</span><br><span class="line">lrwxrwxrwx. 1 root root 37 Oct 25 14:51 /etc/alternatives/java -&gt; /usr/java/jdk1.8.0<span class="emphasis">_311-amd64/bin/java</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">[root@localhost /]# cd /usr/java/jdk1.8.0_</span>311-amd64/bin</span><br><span class="line">[root@localhost bin]# pwd</span><br><span class="line">/usr/java/jdk1.8.0<span class="emphasis">_311-amd64/bin</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">[root@localhost bin]# vi /etc/profile</span></span><br><span class="line"><span class="emphasis"># 将下列复制到profile的最后一行中</span></span><br><span class="line"><span class="emphasis">export JAVA_</span>HOME=/usr/java/jdk1.8.0<span class="emphasis">_311-amd64</span></span><br><span class="line"><span class="emphasis">export PATH=$PATH:$JAVA_</span>HOME/bin</span><br><span class="line">[root@localhost bin]# source /etc/profile</span><br><span class="line"></span><br><span class="line">[root@localhost bin]# echo $JAVA<span class="emphasis">_HOME</span></span><br><span class="line"><span class="emphasis">/usr/java/jdk1.8.0_</span>311-amd64</span><br><span class="line">[root@localhost bin]# java -version</span><br><span class="line">java version &quot;1.8.0<span class="emphasis">_311&quot;</span></span><br><span class="line"><span class="emphasis">Java(TM) SE Runtime Environment (build 1.8.0_</span>311-b11)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.311-b11, mixed mode)</span><br><span class="line">[root@localhost bin]#</span><br></pre></td></tr></table></figure>
 
-<p><font size="4">4.如何写一个带参数的装饰器？</font><br>例子：定义一个装饰器控制函数运行次数</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 外层参数n为控制fun_b运行次数，内层参数为fun_b的函数句柄</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span>(<span class="params">func</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>():</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                func()</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@decorator(<span class="params">n=<span class="number">2</span></span>)</span><span class="comment"># n=2表示一共要运行2次</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_b</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;function_run&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    fun_b()</span><br></pre></td></tr></table></figure>
-<blockquote class="pullquote"><p>function_run<br>function_run</p>
-<p>Process finished with exit code 0</p>
-</blockquote>
+<p><font size="3">3.2 Hbase安装</font></p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">cd /data</span><br><span class="line">tar -zxvf hbase-1.0.3-bin.tar.gz</span><br><span class="line">mkdir service</span><br><span class="line">mv hbase-1.0.3/ /data/service/hbase-1.0.3</span><br><span class="line"></span><br><span class="line">cd /data/service/hbase-1.0.3/conf/</span><br><span class="line">vi hbase-env.sh</span><br><span class="line"></span><br><span class="line"><span class="section"># 在27行左右的位置，修改如下</span></span><br><span class="line">export JAVA<span class="emphasis">_HOME=/usr/java/jdk1.8.0_</span>311-amd64</span><br></pre></td></tr></table></figure>
 
-<p>带参数的装饰器就是在装饰器函数再加一层而已，其他不变</p>
+<p><font size="3">3.3 Hbase启动</font></p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 查看Hbase是否启动成功，如果启动成功的会看到&quot;HMaster&quot;的进程</span></span><br><span class="line">[root@localhost service]# cd hbase-1.0.3/bin/</span><br><span class="line">[root@localhost bin]# ./start-hbase.sh</span><br><span class="line">starting master, logging to /data/service/hbase-1.0.3/bin/../logs/hbase-root-master-localhost.localdomain.out</span><br><span class="line">[root@localhost bin]# jps</span><br><span class="line">45136 Jps</span><br><span class="line">44956 HMaster</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><font size="3">3.3 初始化hbase的pipoint库</font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 执行pinpoint提供的Hbase初始化语句，这时会初始化一会。</span></span><br><span class="line">[root@localhost bin]./hbase shell /data/hbase-create.hbase</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行完了以后，进入Hbase</span></span><br><span class="line">./hbase shell</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入后可以看到Hbase的版本，还有一些相关的信息</span></span><br><span class="line">[root@localhost bin]# ./hbase shell</span><br><span class="line">2021-12-08 13:12:34,201 WARN  [main] util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable</span><br><span class="line">HBase Shell; enter &#x27;help&lt;RETURN&gt;&#x27; for list of supported commands.</span><br><span class="line">Type &quot;exit&lt;RETURN&gt;&quot; to leave the HBase Shell</span><br><span class="line">Version 1.0.3, rf1e1312f9790a7c40f6a4b5a1bab2ea1dd559890, Tue Jan 19 19:26:53 PST 2016</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输入<span class="string">&quot;status &#x27;detailed&#x27;&quot;</span>可以查看刚才初始化的表，是否存在</span></span><br><span class="line">hbase(main):001:0&gt; status &#x27;detailed&#x27;</span><br><span class="line">version 1.0.3</span><br><span class="line">0 regionsInTransition</span><br><span class="line">master coprocessors: []</span><br><span class="line">1 live servers</span><br><span class="line">    localhost:33509 1638940048125</span><br><span class="line">        requestsPerSecond=0.0, numberOfOnlineRegions=498, usedHeapMB=28, maxHeapMB=440, numberOfStores=626, numberOfStorefiles=3, storefileUncompressedSizeMB=0, storefileSizeMB=0, memstoreSizeMB=0, storefileIndexSizeMB=0, readRequestsCount=2491, writeRequestsCount=497, rootIndexSizeKB=8, totalStaticIndexSizeKB=6, totalStaticBloomSizeKB=0, totalCompactingKVs=0, currentCompactedKVs=0, compactionProgressPct=NaN, coprocessors=[MultiRowMutationEndpoint]</span><br><span class="line">        &quot;AgentEvent,,1638793746368.b636297c181e0cc6a88ebb07ae201305.&quot;</span><br><span class="line">            numberOfStores=1, numberOfStorefiles=0, storefileUncompressedSizeMB=0, storefileSizeMB=0, memstoreSizeMB=0, storefileIndexSizeMB=0, readRequestsCount=0, writeRequestsCount=0, rootIndexSizeKB=0, totalStaticIndexSizeKB=0, totalStaticBloomSizeKB=0, totalCompactingKVs=0, currentCompactedKVs=0, compactionProgressPct=NaN, completeSequenceId=-1, dataLocality=0.0</span><br><span class="line">        &quot;AgentInfo,,1638793744733.f9c2faf37400451d5b043c3fdb6938e1.&quot;</span><br><span class="line">            numberOfStores=1, numberOfStorefiles=0, storefileUncompressedSizeMB=0, storefileSizeMB=0, memstoreSizeMB=0, storefileIndexSizeMB=0, readRequestsCount=0, writeRequestsCount=0, rootIndexSizeKB=0, totalStaticIndexSizeKB=0, totalStaticBloomSizeKB=0, totalCompactingKVs=0, currentCompactedKVs=0, compactionProgressPct=NaN, completeSequenceId=-1, dataLocality=0.0</span><br><span class="line">        &quot;AgentLifeCycle,,1638793746219.175c6552b2ef9f0a6cefc0bf9ebd16e8.&quot;</span><br></pre></td></tr></table></figure>
+
+
+<p>登录web，来查看HBase的数据是否初始化成功,如果不能访问，请先关闭虚拟机的防火墙<br>HbaseWeb :<i> <a href="http://192.168.47.130:16010/master-status">http://192.168.47.130:16010/master-status</a></i></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost bin]# systemctl stop firewalld.service</span><br><span class="line">[root@localhost bin]# systemctl disable firewalld.service</span><br><span class="line">Removed symlink /etc/systemd/system/multi-user.target.wants/firewalld.service.</span><br><span class="line">Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/visithbase.jpg"></p>
+<p><font size="4">4.安装pinpoint-collector</font></p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 解压Tomcat，将Tomcat重命名移动到指定位置</span></span><br><span class="line">[root@localhost /]# cd /data</span><br><span class="line">[root@localhost data]# tar -zxvf apache-tomcat-8.0.36.tar.gz</span><br><span class="line">[root@localhost data]# mv apache-tomcat-8.0.36/ /data/service/pp-col</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section"># 部署pinpoint-collector.war包</span></span><br><span class="line"><span class="section">#【注意：如果没有unzip命令，可以 &quot;yum install unzip&quot; 】</span></span><br><span class="line">[root@localhost data]# rm -rf /data/service/pp-col/webapps/<span class="emphasis">*</span></span><br><span class="line"><span class="emphasis">[root@localhost data]# unzip pinpoint-collector-1.5.2.war -d /data/service/pp-col/webapps/ROOT</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"># 启动Tomcat</span></span><br><span class="line"><span class="emphasis">[root@localhost data]# cd /data/service/pp-col/bin/</span></span><br><span class="line"><span class="emphasis">[root@localhost bin]#./startup.sh</span></span><br><span class="line"><span class="emphasis"> </span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"># 查看日志，是否成功启动</span></span><br><span class="line"><span class="emphasis">[root@localhost bin]# tail -f ../logs/catalina.out</span></span><br><span class="line"><span class="emphasis"></span></span><br></pre></td></tr></table></figure>
+<p><font size="4">5.安装pinpoint-web</font></p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[root@localhost /]# cd /data</span><br><span class="line">[root@localhost data]# tar -zxvf apache-tomcat-8.0.36.tar.gz</span><br><span class="line">[root@localhost data]# mv apache-tomcat-8.0.36/ /data/service/pp-web</span><br><span class="line"><span class="section"># 此时的tomcat和前面的tomcat是一模一样的，端口也是一样的，如果启动的话端口会冲突，所以先来改一下pp-web的tomcat端口</span></span><br><span class="line">[root@localhost data]# cd /data/service/pp-web/conf/</span><br><span class="line">[root@localhost conf]sed -i &#x27;s/port=&quot;8005&quot;/port=&quot;18005&quot;/g&#x27; server.xml</span><br><span class="line">[root@localhost conf]sed -i &#x27;s/port=&quot;8080&quot;/port=&quot;18080&quot;/g&#x27; server.xml</span><br><span class="line">[root@localhost conf]sed -i &#x27;s/port=&quot;8443&quot;/port=&quot;18443&quot;/g&#x27; server.xml</span><br><span class="line">[root@localhost conf]sed -i &#x27;s/port=&quot;8009&quot;/port=&quot;18009&quot;/g&#x27; server.xml</span><br><span class="line">[root@localhost conf]sed -i &#x27;s/redirectPort=&quot;8443&quot;/redirectPort=&quot;18443&quot;/g&#x27; server.xml</span><br><span class="line"></span><br><span class="line"><span class="section"># 部署pinpoint-web.war包</span></span><br><span class="line"><span class="section">#【注意：如果没有unzip命令，可以 &quot;yum install unzip&quot; 】</span></span><br><span class="line">[root@localhost data]# rm -rf /data/service/pp-web/webapps/<span class="emphasis">*</span></span><br><span class="line"><span class="emphasis">[root@localhost data]# unzip pinpoint-web-1.5.2.war -d /data/service/pp-web/webapps/ROOT</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"># 启动Tomcat</span></span><br><span class="line"><span class="emphasis">[root@localhost data]# cd /data/service/pp-web/bin/</span></span><br><span class="line"><span class="emphasis">[root@localhost bin]#./startup.sh</span></span><br><span class="line"><span class="emphasis"> </span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"># 查看日志，是否成功启动</span></span><br><span class="line"><span class="emphasis">[root@localhost bin]# tail -f ../logs/catalina.out</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/pinpointcomplete.jpg"></p>
+<p><font size="4">6.安装agent</font><br>没有测试用的war包咋整，测试不会些Java程序正常吗？<br>还是先这样吧，慎用rm -rf *啊，不要问我怎么知道的。<br>下面是github项目组给出的demo<br><i><br><a href="http://125.209.240.10:10123/main">http://125.209.240.10:10123/main</a><br></i></p>
 ]]></content>
-      <categories>
-        <category>python语法</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
   </entry>
   <entry>
     <title>pipeline build &amp; groovy useage</title>
@@ -102,6 +178,7 @@ why?黑人脸</font> <br>
     <content><![CDATA[<p><i>前提： 已安装 <code>pipline plugin</code></i></p>
 <p><font size="4" clolr="blue">新建item &gt; 选择type为Pipline或流水线 &gt; 流水线script里写一段脚本(页面最下方的,选pipline script)</font></p>
 <p><b>举个例子demo:</b></p>
+<span id="more"></span>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers&#123;</span><br><span class="line">          pollSCM(<span class="string">&#x27;H H(9-16)/2 * * 1-5&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Build Scenario&#x27;</span>)&#123;</span><br><span class="line">            steps&#123;</span><br><span class="line">               println <span class="string">&#x27;build&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&quot;Test Scenario&quot;</span>)&#123;</span><br><span class="line">            steps&#123;</span><br><span class="line">                println <span class="string">&#x27;Test&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&quot;Deploy Scenario&quot;</span>)&#123;</span><br><span class="line">            steps&#123;</span><br><span class="line">                println <span class="string">&quot;Deploy&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>解释一下’H H(9-16)/2 * * 1-5’<br>H 哈希值<br>H(9-16)/2 9点到16点，每隔2小时</p>
 <ul>

@@ -6,7 +6,7 @@
   <link href="http://taoli-ax.github.io/atom.xml" rel="self"/>
   
   <link href="http://taoli-ax.github.io/"/>
-  <updated>2021-12-02T14:42:35.572Z</updated>
+  <updated>2021-12-08T06:20:07.005Z</updated>
   <id>http://taoli-ax.github.io/</id>
   
   <author>
@@ -17,21 +17,78 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>pinpoint部署</title>
+    <link href="http://taoli-ax.github.io/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/"/>
+    <id>http://taoli-ax.github.io/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/</id>
+    <published>2021-12-07T18:43:03.000Z</published>
+    <updated>2021-12-08T06:20:07.005Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这几天为了面试又学习了一些新知识&lt;/p&gt;
+&lt;p&gt;1.pact工具&lt;br&gt;2.pinpoint工具&lt;br&gt;3.paramiko库操作ssh&lt;br&gt;4.jmeter插件使用&lt;br&gt;5.jenkins操作ssh发送文件&lt;/p&gt;
+&lt;p&gt;今天先来说pinpoint，用于微服务架构项目</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Centos7 安装docker</title>
+    <link href="http://taoli-ax.github.io/2021/12/03/Centos7-%E5%AE%89%E8%A3%85docker/"/>
+    <id>http://taoli-ax.github.io/2021/12/03/Centos7-%E5%AE%89%E8%A3%85docker/</id>
+    <published>2021-12-02T17:26:09.000Z</published>
+    <updated>2021-12-04T07:27:52.156Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;安装网络相关命令：yum install net-tools&lt;/li&gt;
+&lt;li&gt;安装实用工具：yum install -y yum-utils device-mapper-persistent-data</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>win10安装 Pact-python</title>
+    <link href="http://taoli-ax.github.io/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/"/>
+    <id>http://taoli-ax.github.io/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/</id>
+    <published>2021-12-02T14:43:33.000Z</published>
+    <updated>2021-12-02T15:10:28.767Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;这是一次特殊的安装，拜老大哥所赐&lt;br&gt;这一次不能用pip install,让你们一起见证一下大型超时现场&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/time_out.jpg&quot; alt=&quot;time_out&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>pipeline build &amp; groovy useage</title>
     <link href="http://taoli-ax.github.io/2021/12/02/pipline-bulid-groovy-useage/"/>
     <id>http://taoli-ax.github.io/2021/12/02/pipline-bulid-groovy-useage/</id>
     <published>2021-12-02T04:57:30.000Z</published>
-    <updated>2021-12-02T14:42:35.572Z</updated>
+    <updated>2021-12-02T15:10:28.779Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;p&gt;&lt;i&gt;前提： 已安装 &lt;code&gt;pipline plugin&lt;/code&gt;&lt;/i&gt;&lt;/p&gt;
-&lt;p&gt;&lt;font size=&quot;4&quot; clolr=&quot;blue&quot;&gt;新建item &amp;gt; 选择type为Pipline或流水线 &amp;gt;</summary>
-        
-      
+&lt;p&gt;&lt;font size=&quot;4&quot; clolr=&quot;blue&quot;&gt;新建item &amp;gt; 选择type为Pipline或流水线 &amp;gt; 流水线script里写一段脚本(页面最下方的,选pipline script)&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;举个例子demo:&lt;/b&gt;&lt;/p&gt;</summary>
     
     
     
@@ -90,22 +147,18 @@
     <link href="http://taoli-ax.github.io/2021/12/02/jenkins-install-deploy/"/>
     <id>http://taoli-ax.github.io/2021/12/02/jenkins-install-deploy/</id>
     <published>2021-12-01T16:08:08.000Z</published>
-    <updated>2021-12-01T17:20:30.018Z</updated>
+    <updated>2021-12-02T15:10:28.772Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;br&gt;
 &lt;font size=&quot;4&quot;&gt; 
 虚拟机已安装了 Centos7操作系统,省略&lt;br&gt;
 jenkins官网有基于Centos的安装命令，您可以直接输入，省略 &lt;/font&gt; &lt;br&gt;
 &lt;font size=&quot;4&quot;&gt; 
 启动jenkins : 
-&lt;/font&gt;</summary>
-        
-      
+&lt;/font&gt; 
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[root@localhost ~]# service jenkins start&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Starting jenkins (via systemctl):                          [  确定  ]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;br&gt;</summary>
     
     
     

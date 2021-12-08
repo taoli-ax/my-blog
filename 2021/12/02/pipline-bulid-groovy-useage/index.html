@@ -75,6 +75,7 @@
         <p><i>前提： 已安装 <code>pipline plugin</code></i></p>
 <p><font size="4" clolr="blue">新建item &gt; 选择type为Pipline或流水线 &gt; 流水线script里写一段脚本(页面最下方的,选pipline script)</font></p>
 <p><b>举个例子demo:</b></p>
+<span id="more"></span>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers&#123;</span><br><span class="line">          pollSCM(<span class="string">&#x27;H H(9-16)/2 * * 1-5&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Build Scenario&#x27;</span>)&#123;</span><br><span class="line">            steps&#123;</span><br><span class="line">               println <span class="string">&#x27;build&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&quot;Test Scenario&quot;</span>)&#123;</span><br><span class="line">            steps&#123;</span><br><span class="line">                println <span class="string">&#x27;Test&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&quot;Deploy Scenario&quot;</span>)&#123;</span><br><span class="line">            steps&#123;</span><br><span class="line">                println <span class="string">&quot;Deploy&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>解释一下’H H(9-16)/2 * * 1-5’<br>H 哈希值<br>H(9-16)/2 9点到16点，每隔2小时</p>
 <ul>
@@ -89,7 +90,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/02/pipline-bulid-groovy-useage/" data-id="ckwp2hvcz000kk0uxbupqh34o" data-title="pipeline build &amp; groovy useage" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/02/pipline-bulid-groovy-useage/" data-id="ckwx58gf3000n3cux5amidonn" data-title="pipeline build &amp; groovy useage" class="article-share-link">Share</a>
       
       
       
@@ -98,6 +99,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          win10安装 Pact-python
+        
+      </div>
+    </a>
   
   
     <a href="/2021/12/02/jenkins-plugins-speed-increse/" id="article-nav-older" class="article-nav-link-wrap">
@@ -131,23 +141,23 @@
       <ul>
         
           <li>
+            <a href="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/">pinpoint部署</a>
+          </li>
+        
+          <li>
+            <a href="/2021/12/03/Centos7-%E5%AE%89%E8%A3%85docker/">Centos7 安装docker</a>
+          </li>
+        
+          <li>
+            <a href="/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/">win10安装 Pact-python</a>
+          </li>
+        
+          <li>
             <a href="/2021/12/02/pipline-bulid-groovy-useage/">pipeline build &amp; groovy useage</a>
           </li>
         
           <li>
             <a href="/2021/12/02/jenkins-plugins-speed-increse/">jenkins plugins speed increase</a>
-          </li>
-        
-          <li>
-            <a href="/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/">Centos7虚拟机下groovy安装</a>
-          </li>
-        
-          <li>
-            <a href="/2021/12/02/jenkins-install-deploy/">Centos7虚拟机部署jenkins</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/28/deractor/">了解Decorator</a>
           </li>
         
       </ul>
