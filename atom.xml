@@ -6,7 +6,7 @@
   <link href="http://taoli-ax.github.io/atom.xml" rel="self"/>
   
   <link href="http://taoli-ax.github.io/"/>
-  <updated>2021-12-09T15:17:23.764Z</updated>
+  <updated>2021-12-09T15:18:39.788Z</updated>
   <id>http://taoli-ax.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>pact库</title>
+    <title>通过pact-python观察契约测试</title>
     <link href="http://taoli-ax.github.io/2021/12/08/pact%E5%B7%A5%E5%85%B7/"/>
     <id>http://taoli-ax.github.io/2021/12/08/pact%E5%B7%A5%E5%85%B7/</id>
     <published>2021-12-08T06:22:01.000Z</published>
-    <updated>2021-12-09T15:17:23.764Z</updated>
+    <updated>2021-12-09T15:18:39.788Z</updated>
     
     
     <summary type="html">&lt;p&gt;题目：用pact进行契约测试&lt;br&gt;要求：&lt;br&gt;1.搭建生产者服务器和消费者客户端&lt;br&gt;2.使用客户端向服务器发起请求，得到响应报文，返回到客户端界面响应位置&lt;/p&gt;
