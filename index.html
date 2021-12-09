@@ -52,12 +52,75 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-pact工具" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/08/pact%E5%B7%A5%E5%85%B7/" class="article-date">
+  <time class="dt-published" datetime="2021-12-08T06:22:01.000Z" itemprop="datePublished">2021-12-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B5%8B%E8%AF%95%E5%8F%B3%E7%A7%BB/">测试右移</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/08/pact%E5%B7%A5%E5%85%B7/">pact工具</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目：用pact进行契约测试<br>要求：<br>1.搭建生产者服务器和消费者客户端<br>2.使用客户端向服务器发起请求，得到响应报文，返回到客户端界面响应位置<br>实施：<br>1.先搭建一个服务，作为服务器端，当有客户端向他发起请求时，服务器返回预存储的json报文</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.config[<span class="string">&#x27;JSON_SORT_KEYS&#x27;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">rsp_body = [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;salary&quot;</span>: <span class="number">45000</span>,</span><br><span class="line">            <span class="string">&quot;name&quot;</span>: <span class="string">&quot;Hatsune Miku&quot;</span>,</span><br><span class="line">            <span class="string">&quot;nationality&quot;</span>: <span class="string">&quot;Japan&quot;</span>,</span><br><span class="line">            <span class="string">&quot;contact&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;Email&quot;</span>: <span class="string">&quot;hatsune.miku@woniuxy.com&quot;</span>,</span><br><span class="line">                <span class="string">&quot;Phone Number&quot;</span>: <span class="string">&quot;13900110001&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            <span class="string">&quot;salary&quot;</span>: <span class="number">80000</span>,</span><br><span class="line">            <span class="string">&quot;name&quot;</span>: <span class="string">&quot;Takamachi Nanoha&quot;</span>,</span><br><span class="line">            <span class="string">&quot;nationality&quot;</span>: <span class="string">&quot;Japan&quot;</span>,</span><br><span class="line">            <span class="string">&quot;contact&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;Email&quot;</span>: <span class="string">&quot;takamachi.nanoha@woniuxy.com&quot;</span>,</span><br><span class="line">                <span class="string">&quot;Phone Number&quot;</span>: <span class="string">&quot;18800880008&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/information&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span>():</span></span><br><span class="line">    get_name = request.args.get(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;&quot;</span>).lower()</span><br><span class="line">    <span class="keyword">if</span> get_name == <span class="string">&#x27;miku&#x27;</span>:</span><br><span class="line">        rsp = jsonify(rsp_body[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">elif</span> get_name == <span class="string">&#x27;nanoha&#x27;</span>:</span><br><span class="line">        rsp = jsonify(rsp_body[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        rsp = jsonify(&#123;<span class="string">&#x27;status&#x27;</span>: <span class="string">&#x27;404 not found.&#x27;</span>&#125;)</span><br><span class="line">    <span class="keyword">return</span> rsp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">8080</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>启动服务后，本地浏览器访问 <i><a target="_blank" rel="noopener" href="http://192.168.1.6:8080/information?name=miku">http://192.168.1.6:8080/information?name=miku</a></i><br>得到响应 即为服务器里预先定义的<code>rsp_body[0]</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;salary&quot;</span>:<span class="number">45000</span>,<span class="attr">&quot;name&quot;</span>:<span class="string">&quot;Hatsune Miku&quot;</span>,<span class="attr">&quot;nationality&quot;</span>:<span class="string">&quot;Japan&quot;</span>,<span class="attr">&quot;contact&quot;</span>:&#123;<span class="attr">&quot;Email&quot;</span>:<span class="string">&quot;hatsune.miku@woniuxy.com&quot;</span>,<span class="attr">&quot;Phone Number&quot;</span>:<span class="string">&quot;13900110001&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>说明服务器已经启动成功，否则会报404</p>
+<p>2、搭建一个客户端，向服务器发起请求</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> render_template</span><br><span class="line"><span class="keyword">import</span> urllib3</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/miku&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">miku_html</span>():</span></span><br><span class="line">    params = &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&#x27;miku&#x27;</span>&#125;</span><br><span class="line">    http = urllib3.PoolManager()</span><br><span class="line">    resp = http.request(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;http://localhost:8080/information&#x27;</span>, params)</span><br><span class="line">    result = json.loads(resp.data.decode())</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;miku.html&#x27;</span>, result=result)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">8081</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>启动客户端后，客户端会向服务端8080端口发送一次请求，访问位于服务器端的资源文件json,然后填充到自己的html模板里<code>&#123;&#123;&#125;&#125;</code><br>模板主要内容如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;lead&quot;</span>&gt;</span>电话: &#123;&#123; result[&#x27;contact&#x27;][&#x27;Phone Number&#x27;] &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://taoli-ax.github.io/2021/12/08/pact%E5%B7%A5%E5%85%B7/" data-id="ckwxhfg0j000fxoux54ms8odt" data-title="pact工具" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pact/" rel="tag">pact</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B5%8B%E8%AF%95/" rel="tag">微服务测试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-pinpoint部署" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/" class="article-date">
   <time class="dt-published" datetime="2021-12-07T18:43:03.000Z" itemprop="datePublished">2021-12-08</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B5%8B%E8%AF%95%E5%8F%B3%E7%A7%BB/">测试右移</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -77,42 +140,21 @@
         <p>这几天为了面试又学习了一些新知识</p>
 <p>1.pact工具<br>2.pinpoint工具<br>3.paramiko库操作ssh<br>4.jmeter插件使用<br>5.jenkins操作ssh发送文件</p>
 <p>今天先来说pinpoint，用于微服务架构项目的性能测试</p>
-<p>痛点：微服务架构服务调用多，不易管理，无法做到只对某几个接口/服务进行测试<br>pinpoint理念：基于对全局的监控，只要有流量，就能实时监控到接口的运行时间，测试图表和数据展示非常详细，甚至sql语句的执行时间都能清晰看到<br>提醒：本教程是参考于网络，并只是一个demo，并不是真正的生产环境部署，自学部署pinpoint，至少让自己不陌生，仅此而已</p>
-<p><font size="4">1.材料准备：</font><br>pinpoint github的历史版本浏览 <i> <a target="_blank" rel="noopener" href="https://github.com/pinpoint-apm/pinpoint/releases">https://github.com/pinpoint-apm/pinpoint/releases</a> </i><br>这三个包需要下载<br><img src="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/download.jpg" alt="download"></p>
-<p>hbase数据库： <i><a target="_blank" rel="noopener" href="https://archive.apache.org/dist/hbase/">https://archive.apache.org/dist/hbase/</a></i><br><img src="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/hbaseCap.jpg" alt="hbaseCap"></p>
-<p>虚拟机准备： <i><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/centos/7.9.2009/isos/x86_64/">https://mirrors.tuna.tsinghua.edu.cn/centos/7.9.2009/isos/x86_64/</a></i><br>这里使用了centos7 其他版本未知</p>
-<p><font size="4">2.提前部署：</font><br>虚拟机和jdk1.8已安装<br>MobaXterm已远程ssh连接虚拟机</p>
-<p><font size="4">3.开始部署：</font></p>
-<p><font size="3">3.1上传文件到虚拟机并配置JAVA_HOME：</font></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /]# mkdir data</span><br><span class="line">[root@localhost data]# ll</span><br><span class="line">-rw-r--r--. 1 root root   9277365 Dec 8 12:32 apache-tomcat-8.0.36.tar.gz</span><br><span class="line">-rw-r--r--. 1 root root 103847513 Dec 8 12:32 hbase-1.0.3-bin.tar.gz</span><br><span class="line">-rw-r--r--. 1 root root   6621915 Dec 8 12:32 pinpoint-agent-1.5.2.tar.gz</span><br><span class="line">-rw-r--r--. 1 root root  31339914 Dec 8 12:32 pinpoint-collector-1.5.2.war</span><br><span class="line">-rw-r--r--. 1 root root  54505168 Dec 8 12:32 pinpoint-web-1.5.2.war</span><br><span class="line">-rw-r--r--. 1 root root  17699306 Dec 8 12:32 zookeeper-3.4.6.tar.gz</span><br><span class="line"></span><br><span class="line">[root@localhost /] cd /</span><br><span class="line">[root@localhost /]# which java</span><br><span class="line">/usr/bin/java</span><br><span class="line">[root@localhost /]# ls -lrt /usr/bin/java</span><br><span class="line">lrwxrwxrwx. 1 root root 22 Oct 25 14:51 /usr/bin/java -&gt; /etc/alternatives/java</span><br><span class="line"></span><br><span class="line">[root@localhost /]# ls -lrt /etc/alternatives/java</span><br><span class="line">lrwxrwxrwx. 1 root root 37 Oct 25 14:51 /etc/alternatives/java -&gt; /usr/java/jdk1.8.0<span class="emphasis">_311-amd64/bin/java</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">[root@localhost /]# cd /usr/java/jdk1.8.0_</span>311-amd64/bin</span><br><span class="line">[root@localhost bin]# pwd</span><br><span class="line">/usr/java/jdk1.8.0<span class="emphasis">_311-amd64/bin</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">[root@localhost bin]# vi /etc/profile</span></span><br><span class="line"><span class="emphasis"># 将下列复制到profile的最后一行中</span></span><br><span class="line"><span class="emphasis">export JAVA_</span>HOME=/usr/java/jdk1.8.0<span class="emphasis">_311-amd64</span></span><br><span class="line"><span class="emphasis">export PATH=$PATH:$JAVA_</span>HOME/bin</span><br><span class="line">[root@localhost bin]# source /etc/profile</span><br><span class="line"></span><br><span class="line">[root@localhost bin]# echo $JAVA<span class="emphasis">_HOME</span></span><br><span class="line"><span class="emphasis">/usr/java/jdk1.8.0_</span>311-amd64</span><br><span class="line">[root@localhost bin]# java -version</span><br><span class="line">java version &quot;1.8.0<span class="emphasis">_311&quot;</span></span><br><span class="line"><span class="emphasis">Java(TM) SE Runtime Environment (build 1.8.0_</span>311-b11)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.311-b11, mixed mode)</span><br><span class="line">[root@localhost bin]#</span><br></pre></td></tr></table></figure>
-
-<p><font size="3">3.2 Hbase安装</font></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cd /data</span><br><span class="line">tar -zxvf hbase-1.0.3-bin.tar.gz</span><br><span class="line">mkdir service</span><br><span class="line">mv hbase-1.0.3/ /data/service/hbase-1.0.3</span><br><span class="line"></span><br><span class="line">cd /data/service/hbase-1.0.3/conf/</span><br><span class="line">vi hbase-env.sh</span><br><span class="line"></span><br><span class="line"><span class="section"># 在27行左右的位置，修改如下</span></span><br><span class="line">export JAVA<span class="emphasis">_HOME=/usr/java/jdk1.8.0_</span>311-amd64</span><br></pre></td></tr></table></figure>
-
-<p><font size="3">3.3 Hbase启动</font></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 查看Hbase是否启动成功，如果启动成功的会看到&quot;HMaster&quot;的进程</span></span><br><span class="line">[root@localhost service]# cd hbase-1.0.3/bin/</span><br><span class="line">[root@localhost bin]# ./start-hbase.sh</span><br><span class="line">starting master, logging to /data/service/hbase-1.0.3/bin/../logs/hbase-root-master-localhost.localdomain.out</span><br><span class="line">[root@localhost bin]# jps</span><br><span class="line">45136 Jps</span><br><span class="line">44956 HMaster</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><font size="3">3.3 初始化hbase的pipoint库</font></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 执行pinpoint提供的Hbase初始化语句，这时会初始化一会。</span></span><br><span class="line">[root@localhost bin]./hbase shell /data/hbase-create.hbase</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行完了以后，进入Hbase</span></span><br><span class="line">./hbase shell</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入后可以看到Hbase的版本，还有一些相关的信息</span></span><br><span class="line">[root@localhost bin]# ./hbase shell</span><br><span class="line">2021-12-08 13:12:34,201 WARN  [main] util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable</span><br><span class="line">HBase Shell; enter &#x27;help&lt;RETURN&gt;&#x27; for list of supported commands.</span><br><span class="line">Type &quot;exit&lt;RETURN&gt;&quot; to leave the HBase Shell</span><br><span class="line">Version 1.0.3, rf1e1312f9790a7c40f6a4b5a1bab2ea1dd559890, Tue Jan 19 19:26:53 PST 2016</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输入<span class="string">&quot;status &#x27;detailed&#x27;&quot;</span>可以查看刚才初始化的表，是否存在</span></span><br><span class="line">hbase(main):001:0&gt; status &#x27;detailed&#x27;</span><br><span class="line">version 1.0.3</span><br><span class="line">0 regionsInTransition</span><br><span class="line">master coprocessors: []</span><br><span class="line">1 live servers</span><br><span class="line">    localhost:33509 1638940048125</span><br><span class="line">        requestsPerSecond=0.0, numberOfOnlineRegions=498, usedHeapMB=28, maxHeapMB=440, numberOfStores=626, numberOfStorefiles=3, storefileUncompressedSizeMB=0, storefileSizeMB=0, memstoreSizeMB=0, storefileIndexSizeMB=0, readRequestsCount=2491, writeRequestsCount=497, rootIndexSizeKB=8, totalStaticIndexSizeKB=6, totalStaticBloomSizeKB=0, totalCompactingKVs=0, currentCompactedKVs=0, compactionProgressPct=NaN, coprocessors=[MultiRowMutationEndpoint]</span><br><span class="line">        &quot;AgentEvent,,1638793746368.b636297c181e0cc6a88ebb07ae201305.&quot;</span><br><span class="line">            numberOfStores=1, numberOfStorefiles=0, storefileUncompressedSizeMB=0, storefileSizeMB=0, memstoreSizeMB=0, storefileIndexSizeMB=0, readRequestsCount=0, writeRequestsCount=0, rootIndexSizeKB=0, totalStaticIndexSizeKB=0, totalStaticBloomSizeKB=0, totalCompactingKVs=0, currentCompactedKVs=0, compactionProgressPct=NaN, completeSequenceId=-1, dataLocality=0.0</span><br><span class="line">        &quot;AgentInfo,,1638793744733.f9c2faf37400451d5b043c3fdb6938e1.&quot;</span><br><span class="line">            numberOfStores=1, numberOfStorefiles=0, storefileUncompressedSizeMB=0, storefileSizeMB=0, memstoreSizeMB=0, storefileIndexSizeMB=0, readRequestsCount=0, writeRequestsCount=0, rootIndexSizeKB=0, totalStaticIndexSizeKB=0, totalStaticBloomSizeKB=0, totalCompactingKVs=0, currentCompactedKVs=0, compactionProgressPct=NaN, completeSequenceId=-1, dataLocality=0.0</span><br><span class="line">        &quot;AgentLifeCycle,,1638793746219.175c6552b2ef9f0a6cefc0bf9ebd16e8.&quot;</span><br></pre></td></tr></table></figure>
-
-
-<p>登录web，来查看HBase的数据是否初始化成功,如果不能访问，请先关闭虚拟机的防火墙<br>HbaseWeb :<i> <a target="_blank" rel="noopener" href="http://192.168.47.130:16010/master-status">http://192.168.47.130:16010/master-status</a></i></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]# systemctl stop firewalld.service</span><br><span class="line">[root@localhost bin]# systemctl disable firewalld.service</span><br><span class="line">Removed symlink /etc/systemd/system/multi-user.target.wants/firewalld.service.</span><br><span class="line">Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/visithbase.jpg"></p>
-<p><font size="4">4.安装pinpoint-collector</font></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 解压Tomcat，将Tomcat重命名移动到指定位置</span></span><br><span class="line">[root@localhost /]# cd /data</span><br><span class="line">[root@localhost data]# tar -zxvf apache-tomcat-8.0.36.tar.gz</span><br><span class="line">[root@localhost data]# mv apache-tomcat-8.0.36/ /data/service/pp-col</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section"># 部署pinpoint-collector.war包</span></span><br><span class="line"><span class="section">#【注意：如果没有unzip命令，可以 &quot;yum install unzip&quot; 】</span></span><br><span class="line">[root@localhost data]# rm -rf /data/service/pp-col/webapps/<span class="emphasis">*</span></span><br><span class="line"><span class="emphasis">[root@localhost data]# unzip pinpoint-collector-1.5.2.war -d /data/service/pp-col/webapps/ROOT</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"># 启动Tomcat</span></span><br><span class="line"><span class="emphasis">[root@localhost data]# cd /data/service/pp-col/bin/</span></span><br><span class="line"><span class="emphasis">[root@localhost bin]#./startup.sh</span></span><br><span class="line"><span class="emphasis"> </span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"># 查看日志，是否成功启动</span></span><br><span class="line"><span class="emphasis">[root@localhost bin]# tail -f ../logs/catalina.out</span></span><br><span class="line"><span class="emphasis"></span></span><br></pre></td></tr></table></figure>
-<p><font size="4">5.安装pinpoint-web</font></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /]# cd /data</span><br><span class="line">[root@localhost data]# tar -zxvf apache-tomcat-8.0.36.tar.gz</span><br><span class="line">[root@localhost data]# mv apache-tomcat-8.0.36/ /data/service/pp-web</span><br><span class="line"><span class="section"># 此时的tomcat和前面的tomcat是一模一样的，端口也是一样的，如果启动的话端口会冲突，所以先来改一下pp-web的tomcat端口</span></span><br><span class="line">[root@localhost data]# cd /data/service/pp-web/conf/</span><br><span class="line">[root@localhost conf]sed -i &#x27;s/port=&quot;8005&quot;/port=&quot;18005&quot;/g&#x27; server.xml</span><br><span class="line">[root@localhost conf]sed -i &#x27;s/port=&quot;8080&quot;/port=&quot;18080&quot;/g&#x27; server.xml</span><br><span class="line">[root@localhost conf]sed -i &#x27;s/port=&quot;8443&quot;/port=&quot;18443&quot;/g&#x27; server.xml</span><br><span class="line">[root@localhost conf]sed -i &#x27;s/port=&quot;8009&quot;/port=&quot;18009&quot;/g&#x27; server.xml</span><br><span class="line">[root@localhost conf]sed -i &#x27;s/redirectPort=&quot;8443&quot;/redirectPort=&quot;18443&quot;/g&#x27; server.xml</span><br><span class="line"></span><br><span class="line"><span class="section"># 部署pinpoint-web.war包</span></span><br><span class="line"><span class="section">#【注意：如果没有unzip命令，可以 &quot;yum install unzip&quot; 】</span></span><br><span class="line">[root@localhost data]# rm -rf /data/service/pp-web/webapps/<span class="emphasis">*</span></span><br><span class="line"><span class="emphasis">[root@localhost data]# unzip pinpoint-web-1.5.2.war -d /data/service/pp-web/webapps/ROOT</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"># 启动Tomcat</span></span><br><span class="line"><span class="emphasis">[root@localhost data]# cd /data/service/pp-web/bin/</span></span><br><span class="line"><span class="emphasis">[root@localhost bin]#./startup.sh</span></span><br><span class="line"><span class="emphasis"> </span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"># 查看日志，是否成功启动</span></span><br><span class="line"><span class="emphasis">[root@localhost bin]# tail -f ../logs/catalina.out</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/pinpointcomplete.jpg"></p>
-<p><font size="4">6.安装agent</font><br>没有测试用的war包咋整，测试不会些Java程序正常吗？<br>还是先这样吧，慎用rm -rf *啊，不要问我怎么知道的。<br>下面是github项目组给出的demo<br><i><br><a target="_blank" rel="noopener" href="http://125.209.240.10:10123/main">http://125.209.240.10:10123/main</a><br></i></p>
-
+<p>痛点：微服务架构服务调用多，不易管理，无法做到只对某几个接口/服务进行测试<br>pinpoint理念：基于对全局的监控，只要有流量，就能实时监控到接口的运行时间，测试图表和数据展示非常详细，甚至sql语句的执行时间都能清晰看到<br>提醒：本教程是参考于网络，并只是一个demo，并不是真正的生产环境部署，自学部署pinpoint，至少让自己不寂寞，仅此而已</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/" data-id="ckwx58gf3000m3cux1dp0ddrp" data-title="pinpoint部署" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/" data-id="ckwxhfg0o000zxouxbgy61x6x" data-title="pinpoint部署" class="article-share-link">Share</a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B5%8B%E8%AF%95/" rel="tag">微服务测试</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" rel="tag">性能测试</a></li></ul>
+
     </footer>
   </div>
   
@@ -161,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/03/Centos7-%E5%AE%89%E8%A3%85docker/" data-id="ckwx58gex00073cux7exmab0h" data-title="Centos7 安装docker" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/03/Centos7-%E5%AE%89%E8%A3%85docker/" data-id="ckwxhfg070001xoux99nu10eg" data-title="Centos7 安装docker" class="article-share-link">Share</a>
       
       
       
@@ -179,6 +221,10 @@
   <time class="dt-published" datetime="2021-12-02T14:43:33.000Z" itemprop="datePublished">2021-12-02</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B5%8B%E8%AF%95%E5%8F%B3%E7%A7%BB/">测试右移</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -205,10 +251,12 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/" data-id="ckwx58get00033cux0eck70wb" data-title="win10安装 Pact-python" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/" data-id="ckwxhfg0c0005xoux7tjt699s" data-title="win10安装 Pact-python" class="article-share-link">Share</a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pact/" rel="tag">pact</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B5%8B%E8%AF%95/" rel="tag">微服务测试</a></li></ul>
+
     </footer>
   </div>
   
@@ -250,7 +298,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/02/pipline-bulid-groovy-useage/" data-id="ckwx58gf3000n3cux5amidonn" data-title="pipeline build &amp; groovy useage" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/02/pipline-bulid-groovy-useage/" data-id="ckwxhfg0p0010xoux2ndbft4z" data-title="pipeline build &amp; groovy useage" class="article-share-link">Share</a>
       
       
       
@@ -291,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/02/jenkins-plugins-speed-increse/" data-id="ckwx58gf0000e3cux903k5rvc" data-title="jenkins plugins speed increase" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/02/jenkins-plugins-speed-increse/" data-id="ckwxhfg0i000exouxar2458p8" data-title="jenkins plugins speed increase" class="article-share-link">Share</a>
       
       
       
@@ -336,7 +384,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/" data-id="ckwx58geq00013cuxa8iz9nmm" data-title="Centos7虚拟机下groovy安装" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/" data-id="ckwxhfg0a0003xoux3xfh110q" data-title="Centos7虚拟机下groovy安装" class="article-share-link">Share</a>
       
       
       
@@ -389,7 +437,7 @@ jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </f
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/02/jenkins-install-deploy/" data-id="ckwx58gf0000d3cux7qs2h9rl" data-title="Centos7虚拟机部署jenkins" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/02/jenkins-install-deploy/" data-id="ckwxhfg0g000axoux5er33k47" data-title="Centos7虚拟机部署jenkins" class="article-share-link">Share</a>
       
       
       
@@ -438,7 +486,7 @@ jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </f
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/11/28/deractor/" data-id="ckwx58gex00083cux4b7jea5h" data-title="了解Decorator" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/11/28/deractor/" data-id="ckwxhfg0g0009xoux7fk9bife" data-title="了解Decorator" class="article-share-link">Share</a>
       
       
       
@@ -483,11 +531,11 @@ jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </f
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/11/28/article-title/" data-id="ckwx58gey00093cuxekuh7n9b" data-title="article title" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/11/28/article-title/" data-id="ckwxhfg0f0008xouxgdp2dbvl" data-title="article title" class="article-share-link">Share</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-hexo/" rel="tag">github,hexo</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
 
     </footer>
   </div>
@@ -505,7 +553,7 @@ jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </f
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7-Groovy/" rel="tag">Centos7  Groovy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-hexo/" rel="tag">github,hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7-Groovy/" rel="tag">Centos7  Groovy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pact/" rel="tag">pact</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B5%8B%E8%AF%95/" rel="tag">微服务测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" rel="tag">性能测试</a></li></ul>
     </div>
   </div>
 
@@ -516,6 +564,10 @@ jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </f
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/12/08/pact%E5%B7%A5%E5%85%B7/">pact工具</a>
+          </li>
         
           <li>
             <a href="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/">pinpoint部署</a>
@@ -531,10 +583,6 @@ jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </f
         
           <li>
             <a href="/2021/12/02/pipline-bulid-groovy-useage/">pipeline build &amp; groovy useage</a>
-          </li>
-        
-          <li>
-            <a href="/2021/12/02/jenkins-plugins-speed-increse/">jenkins plugins speed increase</a>
           </li>
         
       </ul>

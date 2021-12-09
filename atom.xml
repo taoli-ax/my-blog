@@ -6,7 +6,7 @@
   <link href="http://taoli-ax.github.io/atom.xml" rel="self"/>
   
   <link href="http://taoli-ax.github.io/"/>
-  <updated>2021-12-08T06:20:07.005Z</updated>
+  <updated>2021-12-08T12:07:21.788Z</updated>
   <id>http://taoli-ax.github.io/</id>
   
   <author>
@@ -17,25 +17,53 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>pact工具</title>
+    <link href="http://taoli-ax.github.io/2021/12/08/pact%E5%B7%A5%E5%85%B7/"/>
+    <id>http://taoli-ax.github.io/2021/12/08/pact%E5%B7%A5%E5%85%B7/</id>
+    <published>2021-12-08T06:22:01.000Z</published>
+    <updated>2021-12-08T12:07:21.788Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;题目：用pact进行契约测试&lt;br&gt;要求：&lt;br&gt;1.搭建生产者服务器和消费者客户端&lt;br&gt;2.使用客户端向服务器发起请求，得到响应报文，返回到客户端界面响应位置&lt;br&gt;实施：&lt;br&gt;1.先搭建一个服务，作为服务器端，当有客户端向他发起请求时，服务器返回预存储的json报文</summary>
+        
+      
+    
+    
+    
+    <category term="测试右移" scheme="http://taoli-ax.github.io/categories/%E6%B5%8B%E8%AF%95%E5%8F%B3%E7%A7%BB/"/>
+    
+    
+    <category term="微服务测试" scheme="http://taoli-ax.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B5%8B%E8%AF%95/"/>
+    
+    <category term="pact" scheme="http://taoli-ax.github.io/tags/pact/"/>
+    
+  </entry>
+  
+  <entry>
     <title>pinpoint部署</title>
     <link href="http://taoli-ax.github.io/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/"/>
     <id>http://taoli-ax.github.io/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/</id>
     <published>2021-12-07T18:43:03.000Z</published>
-    <updated>2021-12-08T06:20:07.005Z</updated>
+    <updated>2021-12-08T06:30:09.537Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;p&gt;这几天为了面试又学习了一些新知识&lt;/p&gt;
 &lt;p&gt;1.pact工具&lt;br&gt;2.pinpoint工具&lt;br&gt;3.paramiko库操作ssh&lt;br&gt;4.jmeter插件使用&lt;br&gt;5.jenkins操作ssh发送文件&lt;/p&gt;
-&lt;p&gt;今天先来说pinpoint，用于微服务架构项目</summary>
-        
-      
+&lt;p&gt;今天先来说pinpoint，用于微服务架构项目的性能测试&lt;/p&gt;
+&lt;p&gt;痛点：微服务架构服务调用多，不易管理，无法做到只对某几个接口/服务进行测试&lt;br&gt;pinpoint理念：基于对全局的监控，只要有流量，就能实时监控到接口的运行时间，测试图表和数据展示非常详细，甚至sql语句的执行时间都能清晰看到&lt;br&gt;提醒：本教程是参考于网络，并只是一个demo，并不是真正的生产环境部署，自学部署pinpoint，至少让自己不寂寞，仅此而已&lt;/p&gt;</summary>
     
     
     
+    <category term="测试右移" scheme="http://taoli-ax.github.io/categories/%E6%B5%8B%E8%AF%95%E5%8F%B3%E7%A7%BB/"/>
+    
+    
+    <category term="微服务测试" scheme="http://taoli-ax.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B5%8B%E8%AF%95/"/>
+    
+    <category term="性能测试" scheme="http://taoli-ax.github.io/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -67,7 +95,7 @@
     <link href="http://taoli-ax.github.io/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/"/>
     <id>http://taoli-ax.github.io/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/</id>
     <published>2021-12-02T14:43:33.000Z</published>
-    <updated>2021-12-02T15:10:28.767Z</updated>
+    <updated>2021-12-08T06:30:35.741Z</updated>
     
     
     <summary type="html">&lt;p&gt;这是一次特殊的安装，拜老大哥所赐&lt;br&gt;这一次不能用pip install,让你们一起见证一下大型超时现场&lt;/p&gt;
@@ -75,6 +103,12 @@
     
     
     
+    <category term="测试右移" scheme="http://taoli-ax.github.io/categories/%E6%B5%8B%E8%AF%95%E5%8F%B3%E7%A7%BB/"/>
+    
+    
+    <category term="微服务测试" scheme="http://taoli-ax.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B5%8B%E8%AF%95/"/>
+    
+    <category term="pact" scheme="http://taoli-ax.github.io/tags/pact/"/>
     
   </entry>
   
@@ -191,7 +225,7 @@ jenkins官网有基于Centos的安装命令，您可以直接输入，省略 &lt
     <link href="http://taoli-ax.github.io/2021/11/28/article-title/"/>
     <id>http://taoli-ax.github.io/2021/11/28/article-title/</id>
     <published>2021-11-28T11:57:11.000Z</published>
-    <updated>2021-11-28T15:41:49.925Z</updated>
+    <updated>2021-12-08T06:30:56.475Z</updated>
     
     
       
@@ -208,7 +242,9 @@ jenkins官网有基于Centos的安装命令，您可以直接输入，省略 &lt
     <category term="新技术" scheme="http://taoli-ax.github.io/categories/%E6%96%B0%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="github,hexo" scheme="http://taoli-ax.github.io/tags/github-hexo/"/>
+    <category term="github" scheme="http://taoli-ax.github.io/tags/github/"/>
+    
+    <category term="hexo" scheme="http://taoli-ax.github.io/tags/hexo/"/>
     
   </entry>
   
