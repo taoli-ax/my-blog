@@ -120,7 +120,7 @@ why?黑人脸</font> <br>
   <entry>
     <title>通过pact-python观察契约测试</title>
     <url>/2021/12/08/pact%E5%B7%A5%E5%85%B7/</url>
-    <content><![CDATA[<p>题目：用pact进行契约测试<br>要求：<br>1.搭建生产者服务器和消费者客户端<br>2.使用客户端向服务器发起请求，得到响应报文，返回到客户端界面响应位置</p>
+    <content><![CDATA[<p>题目：用pact进行契约测试<br>要求：<br>1.搭建生产者服务器和消费者客户端<br>2.使用客户端生成契约文件，并验证服务端是否按照契约执行</p>
 <p>参考资源：<br>pact-python ：<i><a href="https://github.com/pact-foundation/pact-python/">https://github.com/pact-foundation/pact-python/</a></i><br>大神的博客：<i><a href="https://ariman.cn/2018/02/28/%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E4%B9%8BPact-By-Example/">https://ariman.cn/2018/02/28/%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E4%B9%8BPact-By-Example/</a></i></p>
 <span id="more"></span>
 <p>实施：<br>1.先搭建一个服务，作为服务器端，当有客户端向他发起请求时，服务器返回预存储的json报文</p>

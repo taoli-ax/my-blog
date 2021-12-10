@@ -6,7 +6,7 @@
   <link href="http://taoli-ax.github.io/atom.xml" rel="self"/>
   
   <link href="http://taoli-ax.github.io/"/>
-  <updated>2021-12-09T15:18:39.788Z</updated>
+  <updated>2021-12-10T16:57:35.552Z</updated>
   <id>http://taoli-ax.github.io/</id>
   
   <author>
@@ -21,10 +21,10 @@
     <link href="http://taoli-ax.github.io/2021/12/08/pact%E5%B7%A5%E5%85%B7/"/>
     <id>http://taoli-ax.github.io/2021/12/08/pact%E5%B7%A5%E5%85%B7/</id>
     <published>2021-12-08T06:22:01.000Z</published>
-    <updated>2021-12-09T15:18:39.788Z</updated>
+    <updated>2021-12-10T16:57:35.552Z</updated>
     
     
-    <summary type="html">&lt;p&gt;题目：用pact进行契约测试&lt;br&gt;要求：&lt;br&gt;1.搭建生产者服务器和消费者客户端&lt;br&gt;2.使用客户端向服务器发起请求，得到响应报文，返回到客户端界面响应位置&lt;/p&gt;
+    <summary type="html">&lt;p&gt;题目：用pact进行契约测试&lt;br&gt;要求：&lt;br&gt;1.搭建生产者服务器和消费者客户端&lt;br&gt;2.使用客户端生成契约文件，并验证服务端是否按照契约执行&lt;/p&gt;
 &lt;p&gt;参考资源：&lt;br&gt;pact-python ：&lt;i&gt;&lt;a href=&quot;https://github.com/pact-foundation/pact-python/&quot;&gt;https://github.com/pact-foundation/pact-python/&lt;/a&gt;&lt;/i&gt;&lt;br&gt;大神的博客：&lt;i&gt;&lt;a href=&quot;https://ariman.cn/2018/02/28/%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E4%B9%8BPact-By-Example/&quot;&gt;https://ariman.cn/2018/02/28/%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E4%B9%8BPact-By-Example/&lt;/a&gt;&lt;/i&gt;&lt;/p&gt;</summary>
     
     
