@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Centos7虚拟机下groovy安装</title>
+    <url>/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>安装命令<br>curl -s get.sdkman.io | bash<br>source “/root/.sdkman/bin/sdkman-init.sh”<br>sdk install groovy</p>
+<p>检查版本<br> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# groovy --version</span><br><span class="line">Groovy Version: 3.0.9 JVM: 11.0.13 Vendor: Red Hat, Inc. OS: Linux</span><br></pre></td></tr></table></figure></p>
+<p>设置环境变量<br>export GROOVY_HOME=/usr/local/groovy-3.0.9<br>export PATH=${GROOVY_HOME}/bin:${PATH}</p>
+]]></content>
+      <categories>
+        <category>测试右移</category>
+      </categories>
+      <tags>
+        <tag>Centos7  Groovy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Centos7 安装docker</title>
     <url>/2021/12/03/Centos7-%E5%AE%89%E8%A3%85docker/</url>
     <content><![CDATA[<ol>
@@ -18,20 +32,6 @@
 </ol>
 <p>cp 宿主机文件名:容器目录/文件名 容器hostname</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Centos7虚拟机下groovy安装</title>
-    <url>/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<p>安装命令<br>curl -s get.sdkman.io | bash<br>source “/root/.sdkman/bin/sdkman-init.sh”<br>sdk install groovy</p>
-<p>检查版本<br> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# groovy --version</span><br><span class="line">Groovy Version: 3.0.9 JVM: 11.0.13 Vendor: Red Hat, Inc. OS: Linux</span><br></pre></td></tr></table></figure></p>
-<p>设置环境变量<br>export GROOVY_HOME=/usr/local/groovy-3.0.9<br>export PATH=${GROOVY_HOME}/bin:${PATH}</p>
-]]></content>
-      <categories>
-        <category>测试右移</category>
-      </categories>
-      <tags>
-        <tag>Centos7  Groovy</tag>
-      </tags>
   </entry>
   <entry>
     <title>win10安装 Pact-python</title>
@@ -61,6 +61,33 @@
       </tags>
   </entry>
   <entry>
+    <title>了解Decorator</title>
+    <url>/2021/11/28/deractor/</url>
+    <content><![CDATA[<p><font size="4"> 1.装饰器是什么？ </font><br>@decorator</p>
+<p><font size="4">2.有什么作用？</font><br>项目中的主要用途：计算function的运算时间</p>
+<p><font size="4">3.如何写一个装饰器？</font><br>   例子：计算函数运行时间的装饰器demo</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment">#装饰器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">func</span>):</span><span class="comment">#1.装饰器参数func接收了一个函数句柄即：fun_a</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>():</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;start run&#x27;</span>)</span><br><span class="line">        func()<span class="comment"># 3.加上()展开了句柄func()</span></span><br><span class="line">        end = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;end run&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;函数运行时间是：%.8f&#x27;</span> % (end - start))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper <span class="comment"># 2.装饰器通过return来运行 wrapper()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#被装饰的函数</span></span><br><span class="line"><span class="meta">@decorator</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_a</span>():</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun_a()</span><br></pre></td></tr></table></figure>
+<blockquote class="pullquote"><p>输出：<br>start run<br>end run<br>函数运行时间是：1.00012064</p>
+<p>Process finished with exit code 0</p>
+</blockquote>
+
+<p><font size="4">4.如何写一个带参数的装饰器？</font><br>例子：定义一个装饰器控制函数运行次数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 外层参数n为控制fun_b运行次数，内层参数为fun_b的函数句柄</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span>(<span class="params">func</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>():</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                func()</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@decorator(<span class="params">n=<span class="number">2</span></span>)</span><span class="comment"># n=2表示一共要运行2次</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_b</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;function_run&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    fun_b()</span><br></pre></td></tr></table></figure>
+<blockquote class="pullquote"><p>function_run<br>function_run</p>
+<p>Process finished with exit code 0</p>
+</blockquote>
+
+<p>带参数的装饰器就是在装饰器函数再加一层而已，其他不变</p>
+]]></content>
+      <categories>
+        <category>python语法</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>article title</title>
     <url>/2021/11/28/article-title/</url>
     <content><![CDATA[<p>在很久很久以前</p>
@@ -72,14 +99,6 @@
         <tag>github</tag>
         <tag>hexo</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>jenkins plugins speed increase</title>
-    <url>/2021/12/02/jenkins-plugins-speed-increse/</url>
-    <content><![CDATA[<p><font size="4">jenkins插件下载一般都很慢，防火墙太强</font></p>
-<p>解决方法是<code>替换镜像源</code><br><i>1.首先到jenkins的默认工作目录下</i><br><i>2.然后用sed命令</i></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost etc]# cd /var/lib/jenkins/updates/</span><br><span class="line">[root@localhost updates]# sed -i &#x27;s/http:\/\/updates.jenkins-ci.org\/download/https:\/\/mirrors.tuna.tsinghua.edu.cn\/jenkins/g&#x27; default.json &amp;&amp; sed -i &#x27;s/http:\/\/www.google.com/https:\/\/www.baidu.com/g&#x27; default.json</span><br></pre></td></tr></table></figure>
-]]></content>
   </entry>
   <entry>
     <title>Centos7虚拟机部署jenkins</title>
@@ -118,18 +137,26 @@ why?黑人脸</font> <br>
 ]]></content>
   </entry>
   <entry>
+    <title>jenkins plugins speed increase</title>
+    <url>/2021/12/02/jenkins-plugins-speed-increse/</url>
+    <content><![CDATA[<p><font size="4">jenkins插件下载一般都很慢，防火墙太强</font></p>
+<p>解决方法是<code>替换镜像源</code><br><i>1.首先到jenkins的默认工作目录下</i><br><i>2.然后用sed命令</i></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost etc]# cd /var/lib/jenkins/updates/</span><br><span class="line">[root@localhost updates]# sed -i &#x27;s/http:\/\/updates.jenkins-ci.org\/download/https:\/\/mirrors.tuna.tsinghua.edu.cn\/jenkins/g&#x27; default.json &amp;&amp; sed -i &#x27;s/http:\/\/www.google.com/https:\/\/www.baidu.com/g&#x27; default.json</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
     <title>通过pact-python观察契约测试</title>
     <url>/2021/12/08/pact%E5%B7%A5%E5%85%B7/</url>
     <content><![CDATA[<p>题目：用pact进行契约测试<br>要求：<br>1.搭建生产者服务器和消费者客户端<br>2.使用客户端生成契约文件，并验证服务端是否按照契约执行</p>
 <p>参考资源：<br>pact-python ：<i><a href="https://github.com/pact-foundation/pact-python/">https://github.com/pact-foundation/pact-python/</a></i><br>大神的博客：<i><a href="https://ariman.cn/2018/02/28/%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E4%B9%8BPact-By-Example/">https://ariman.cn/2018/02/28/%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E4%B9%8BPact-By-Example/</a></i></p>
 <span id="more"></span>
-<p>实施：<br>1.先搭建一个服务，作为服务器端，当有客户端向他发起请求时，服务器返回预存储的json报文</p>
+<p>实施：<br>1.1.先搭建一个服务，作为服务器端，当有客户端向他发起请求时，服务器返回预存储的json报文</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.config[<span class="string">&#x27;JSON_SORT_KEYS&#x27;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">rsp_body = [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;salary&quot;</span>: <span class="number">45000</span>,</span><br><span class="line">            <span class="string">&quot;name&quot;</span>: <span class="string">&quot;Hatsune Miku&quot;</span>,</span><br><span class="line">            <span class="string">&quot;nationality&quot;</span>: <span class="string">&quot;Japan&quot;</span>,</span><br><span class="line">            <span class="string">&quot;contact&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;Email&quot;</span>: <span class="string">&quot;hatsune.miku@woniuxy.com&quot;</span>,</span><br><span class="line">                <span class="string">&quot;Phone Number&quot;</span>: <span class="string">&quot;13900110001&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            <span class="string">&quot;salary&quot;</span>: <span class="number">80000</span>,</span><br><span class="line">            <span class="string">&quot;name&quot;</span>: <span class="string">&quot;Takamachi Nanoha&quot;</span>,</span><br><span class="line">            <span class="string">&quot;nationality&quot;</span>: <span class="string">&quot;Japan&quot;</span>,</span><br><span class="line">            <span class="string">&quot;contact&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;Email&quot;</span>: <span class="string">&quot;takamachi.nanoha@woniuxy.com&quot;</span>,</span><br><span class="line">                <span class="string">&quot;Phone Number&quot;</span>: <span class="string">&quot;18800880008&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/information&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span>():</span></span><br><span class="line">    get_name = request.args.get(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;&quot;</span>).lower()</span><br><span class="line">    <span class="keyword">if</span> get_name == <span class="string">&#x27;miku&#x27;</span>:</span><br><span class="line">        rsp = jsonify(rsp_body[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">elif</span> get_name == <span class="string">&#x27;nanoha&#x27;</span>:</span><br><span class="line">        rsp = jsonify(rsp_body[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        rsp = jsonify(&#123;<span class="string">&#x27;status&#x27;</span>: <span class="string">&#x27;404 not found.&#x27;</span>&#125;)</span><br><span class="line">    <span class="keyword">return</span> rsp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">8080</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>启动服务后，本地浏览器访问 <i><a href="http://192.168.1.6:8080/information?name=miku">http://192.168.1.6:8080/information?name=miku</a></i><br>得到响应 即为服务器里预先定义的<code>rsp_body[0]</code></p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;salary&quot;</span>:<span class="number">45000</span>,<span class="attr">&quot;name&quot;</span>:<span class="string">&quot;Hatsune Miku&quot;</span>,<span class="attr">&quot;nationality&quot;</span>:<span class="string">&quot;Japan&quot;</span>,<span class="attr">&quot;contact&quot;</span>:&#123;<span class="attr">&quot;Email&quot;</span>:<span class="string">&quot;hatsune.miku@woniuxy.com&quot;</span>,<span class="attr">&quot;Phone Number&quot;</span>:<span class="string">&quot;13900110001&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
 <p>说明服务器已经启动成功，否则会报404</p>
-<p>2、搭建一个客户端，向服务器发起请求</p>
+<p>1.2、搭建一个客户端，向服务器发起请求</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> render_template</span><br><span class="line"><span class="keyword">import</span> urllib3</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/miku&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">miku_html</span>():</span></span><br><span class="line">    params = &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&#x27;miku&#x27;</span>&#125;</span><br><span class="line">    http = urllib3.PoolManager()</span><br><span class="line">    resp = http.request(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;http://localhost:8080/information&#x27;</span>, params)</span><br><span class="line">    result = json.loads(resp.data.decode())</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;miku.html&#x27;</span>, result=result)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">8081</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>启动客户端后，客户端会向服务端8080端口发送一次请求，访问位于服务器端的资源文件json,然后填充到自己的html模板里<code>&#123;&#123;&#125;&#125;</code><br>模板主要内容如下</p>
@@ -137,7 +164,8 @@ why?黑人脸</font> <br>
 
 <p>这里其实已经发生了契约测试，因为客户端要求提供的<code>result[&#39;name&#39;]/[&#39;Email&#39;]/[&#39;contact&#39;][&#39;Phone Number&#39;] </code>这些要素都已被服务器正确响应，说白了，该有的都有了，一字不差的响应正确了！<br>客户端和服务器之间的契约完成！</p>
 <p>这大概是一个结果吧，就跟我们接口测试一样</p>
-<p>上面实现了一个简单的应用程序<br>下面，我们用契约测试的方式来重新实现这个应用的生产过程，即契约的方式</p>
+<p>上面实现了一个简单的应用程序</p>
+<p>2.1下面，我们用契约测试的方式来重新实现这个应用的生产过程，即契约的方式</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> atexit</span><br><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="keyword">from</span> pact <span class="keyword">import</span> Consumer, Provider</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造pact对象，定义消费者服务的名字并给它绑定一个生产者服务</span></span><br><span class="line">pact = Consumer(<span class="string">&#x27;Consumer Miku&#x27;</span>).has_pact_with(Provider(<span class="string">&#x27;Provider&#x27;</span>))</span><br><span class="line">pact.start_service()</span><br><span class="line"><span class="comment"># 注册退出的时候关闭Pact服务</span></span><br><span class="line">atexit.register(pact.stop_service)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GetMikuInfoContract</span>(<span class="params">unittest.TestCase</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_cartoon_characters</span>(<span class="params">self,name</span>):</span></span><br><span class="line">        <span class="comment"># pact作为模拟生产者时，其端口默认为1234</span></span><br><span class="line">        resp = requests.get(<span class="string">&#x27;http://localhost:1234/information&#x27;</span>, &#123;<span class="string">&#x27;name&#x27;</span>: name&#125;)</span><br><span class="line">        <span class="keyword">return</span> resp</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_miku</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># 定义响应的期望结果</span></span><br><span class="line">        expected = &#123;</span><br><span class="line">            <span class="string">&quot;salary&quot;</span>: <span class="number">45000</span>,</span><br><span class="line">            <span class="string">&quot;name&quot;</span>: <span class="string">&quot;Hatsune Miku&quot;</span>,</span><br><span class="line">            <span class="string">&quot;nationality&quot;</span>: <span class="string">&quot;Japan&quot;</span>,</span><br><span class="line">            <span class="string">&quot;contact&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;Email&quot;</span>: <span class="string">&quot;hatsune.miku@woniuxy.com&quot;</span>,</span><br><span class="line">                <span class="string">&quot;Phone Number&quot;</span>: <span class="string">&quot;13900110001&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment"># 定义响应的头</span></span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment"># step1 指定服务器的行为和属性: 契约名为`a request for Miku`，请求方式为get,路径为/information,查询参数为name,且响应头为header，正文为expected</span></span><br><span class="line">        (pact.upon_receiving(<span class="string">&#x27;a request for Miku&#x27;</span>).with_request(method=<span class="string">&#x27;GET&#x27;</span>,path=<span class="string">&#x27;/information&#x27;</span>,query=&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;miku&#x27;</span>&#125;</span><br><span class="line">         ).will_respond_with(<span class="number">200</span>, headers, expected))</span><br><span class="line">        <span class="comment"># step2:pact启动了一个mock server 并根据契约内容发送了request</span></span><br><span class="line">        <span class="keyword">with</span> pact:</span><br><span class="line">            result = self.get_cartoon_characters(<span class="string">&#x27;miku&#x27;</span>)</span><br><span class="line">        <span class="comment"># 自我验证一下</span></span><br><span class="line">        self.assertEqual(result.json(), expected)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    unittest.main(verbosity=<span class="number">2</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
@@ -155,33 +183,6 @@ why?黑人脸</font> <br>
       <tags>
         <tag>微服务测试</tag>
         <tag>pact</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>了解Decorator</title>
-    <url>/2021/11/28/deractor/</url>
-    <content><![CDATA[<p><font size="4"> 1.装饰器是什么？ </font><br>@decorator</p>
-<p><font size="4">2.有什么作用？</font><br>项目中的主要用途：计算function的运算时间</p>
-<p><font size="4">3.如何写一个装饰器？</font><br>   例子：计算函数运行时间的装饰器demo</p>
-<span id="more"></span>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment">#装饰器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">func</span>):</span><span class="comment">#1.装饰器参数func接收了一个函数句柄即：fun_a</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>():</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;start run&#x27;</span>)</span><br><span class="line">        func()<span class="comment"># 3.加上()展开了句柄func()</span></span><br><span class="line">        end = time.time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;end run&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;函数运行时间是：%.8f&#x27;</span> % (end - start))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper <span class="comment"># 2.装饰器通过return来运行 wrapper()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#被装饰的函数</span></span><br><span class="line"><span class="meta">@decorator</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_a</span>():</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun_a()</span><br></pre></td></tr></table></figure>
-<blockquote class="pullquote"><p>输出：<br>start run<br>end run<br>函数运行时间是：1.00012064</p>
-<p>Process finished with exit code 0</p>
-</blockquote>
-
-<p><font size="4">4.如何写一个带参数的装饰器？</font><br>例子：定义一个装饰器控制函数运行次数</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 外层参数n为控制fun_b运行次数，内层参数为fun_b的函数句柄</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span>(<span class="params">func</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>():</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                func()</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@decorator(<span class="params">n=<span class="number">2</span></span>)</span><span class="comment"># n=2表示一共要运行2次</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_b</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;function_run&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    fun_b()</span><br></pre></td></tr></table></figure>
-<blockquote class="pullquote"><p>function_run<br>function_run</p>
-<p>Process finished with exit code 0</p>
-</blockquote>
-
-<p>带参数的装饰器就是在装饰器函数再加一层而已，其他不变</p>
-]]></content>
-      <categories>
-        <category>python语法</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
