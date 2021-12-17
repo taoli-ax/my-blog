@@ -6,7 +6,7 @@
   <link href="http://taoli-ax.github.io/atom.xml" rel="self"/>
   
   <link href="http://taoli-ax.github.io/"/>
-  <updated>2021-12-10T17:33:36.241Z</updated>
+  <updated>2021-12-17T14:03:20.860Z</updated>
   <id>http://taoli-ax.github.io/</id>
   
   <author>
@@ -15,6 +15,120 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【架构师】如何设计friendship</title>
+    <link href="http://taoli-ax.github.io/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1friendship/"/>
+    <id>http://taoli-ax.github.io/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1friendship/</id>
+    <published>2021-12-16T07:14:01.000Z</published>
+    <updated>2021-12-17T14:03:20.860Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&amp;lt;|=========请留空行给我的脖子==============|&amp;gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="twitter项目思路梳理" scheme="http://taoli-ax.github.io/categories/twitter%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%B7%AF%E6%A2%B3%E7%90%86/"/>
+    
+    
+    <category term="Twitter架构师" scheme="http://taoli-ax.github.io/tags/Twitter%E6%9E%B6%E6%9E%84%E5%B8%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【架构师】如何设计你的tweet模块</title>
+    <link href="http://taoli-ax.github.io/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%BD%A0%E7%9A%84tweet%E6%A8%A1%E5%9D%97/"/>
+    <id>http://taoli-ax.github.io/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%BD%A0%E7%9A%84tweet%E6%A8%A1%E5%9D%97/</id>
+    <published>2021-12-16T05:36:39.000Z</published>
+    <updated>2021-12-16T07:13:00.030Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;用过twitter吗，如果你是架构师，你在设计的时候，你会定义哪些字段来记录推文？&lt;/p&gt;
+&lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1.首先设计tweets/model&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;user&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;content&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;crated&lt;span class=&quot;emphasis&quot;&gt;_at&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;emphasis&quot;&gt;index_&lt;/span&gt;together = ((&amp;#x27;user&amp;#x27;,&amp;#x27;created&lt;span class=&quot;emphasis&quot;&gt;_at&amp;#x27;),)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="twitter项目思路梳理" scheme="http://taoli-ax.github.io/categories/twitter%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%B7%AF%E6%A2%B3%E7%90%86/"/>
+    
+    
+    <category term="Twitter架构师" scheme="http://taoli-ax.github.io/tags/Twitter%E6%9E%B6%E6%9E%84%E5%B8%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>twitter项目的理解</title>
+    <link href="http://taoli-ax.github.io/2021/12/16/twitter%E9%A1%B9%E7%9B%AE/"/>
+    <id>http://taoli-ax.github.io/2021/12/16/twitter%E9%A1%B9%E7%9B%AE/</id>
+    <published>2021-12-15T17:51:19.000Z</published>
+    <updated>2021-12-16T07:09:34.673Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;今天开始更新twitter项目的理解&lt;br&gt;按照git branch提交的来&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="twitter项目的分支理解" scheme="http://taoli-ax.github.io/categories/twitter%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%88%86%E6%94%AF%E7%90%86%E8%A7%A3/"/>
+    
+    
+    <category term="9-newsfeed-model-and-admin" scheme="http://taoli-ax.github.io/tags/9-newsfeed-model-and-admin/"/>
+    
+    <category term="9-1-newsfeed-fanout-followers-service" scheme="http://taoli-ax.github.io/tags/9-1-newsfeed-fanout-followers-service/"/>
+    
+    <category term="9-2-newsfeed-api-and-tests" scheme="http://taoli-ax.github.io/tags/9-2-newsfeed-api-and-tests/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>学习心态</title>
+    <link href="http://taoli-ax.github.io/2021/12/14/%E5%AD%A6%E4%B9%A0%E5%BF%83%E6%80%81/"/>
+    <id>http://taoli-ax.github.io/2021/12/14/%E5%AD%A6%E4%B9%A0%E5%BF%83%E6%80%81/</id>
+    <published>2021-12-14T09:44:29.000Z</published>
+    <updated>2021-12-14T11:26:34.950Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;打游戏时，无所谓，释放了自己的紧张神经质&lt;br&gt;提起学习，还没有碰到，就已经神经起来了&lt;br&gt;所以趋利避害，我喜欢的是打游戏的状态，放松，失败也无所谓，不会放在心上&lt;br&gt;我怯惧学习的状态，遇到一点难题问题就心态爆炸，反观游戏时，对手越强就越兴奋，燃气斗志一争高下&lt;br&gt;喜</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>django索引</title>
+    <link href="http://taoli-ax.github.io/2021/12/11/django%E7%B4%A2%E5%BC%95/"/>
+    <id>http://taoli-ax.github.io/2021/12/11/django%E7%B4%A2%E5%BC%95/</id>
+    <published>2021-12-11T02:21:13.000Z</published>
+    <updated>2021-12-15T17:48:05.701Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天开始更新django后端开发twitter系列，同时学习django和django rest framework&lt;/p&gt;
+&lt;p&gt;索引的概念&lt;br&gt;foreigner</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Django" scheme="http://taoli-ax.github.io/tags/Django/"/>
+    
+  </entry>
   
   <entry>
     <title>通过pact-python观察契约测试</title>

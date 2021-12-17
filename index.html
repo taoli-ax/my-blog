@@ -52,6 +52,238 @@
       <div class="outer">
         <section id="main">
   
+    <article id="twitter项目理解-【架构师】如何设计friendship" class="h-entry article article-type-twitter项目理解" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1friendship/" class="article-date">
+  <time class="dt-published" datetime="2021-12-16T07:14:01.000Z" itemprop="datePublished">2021-12-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/twitter%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%B7%AF%E6%A2%B3%E7%90%86/">twitter项目思路梳理</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1friendship/">【架构师】如何设计friendship</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>&lt;|=========请留空行给我的脖子==============|&gt;</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.Question:如何设计关注者和被关注者之间的关系model，follower &amp; following?</span><br><span class="line">思路：</span><br><span class="line">设计两个字段，from<span class="emphasis">_user and to_</span>user</span><br><span class="line">这样可以实现a=&gt;b，单向关注</span><br><span class="line">同样可以实现b=&gt;a，单项关注</span><br><span class="line">另外设计created<span class="emphasis">_at 简单记录时间</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">实现细节：</span></span><br><span class="line"><span class="emphasis">1.User(on_</span>deleted=model.SET<span class="emphasis">_NULL,null=Ture)</span></span><br><span class="line"><span class="emphasis">这样当取消用户关注后，这条记录不会被删除，而是设为null</span></span><br><span class="line"><span class="emphasis">2.需要添加联合索引，自己思考</span></span><br><span class="line"><span class="emphasis">3.添加唯一性约束，unique_</span>index=(xxxx,)</span><br><span class="line">question :  user.follower<span class="emphasis">_friendship_</span>set.all() 这是什么操作？</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">2.Question:如何设计follower/following的api,需要哪些api?</span><br><span class="line">思路：</span><br><span class="line">需要设计4个api </span><br><span class="line">follow 关注  POST</span><br><span class="line">unfollow 取消关注  POST</span><br><span class="line">following 查询我时谁的粉丝 GET</span><br><span class="line">follower  查询谁是我的粉丝 GET</span><br><span class="line"></span><br><span class="line">步骤：</span><br><span class="line">1.有post就要有validate,那就需要用序列化器 FriendshipSerializerForCreate</span><br><span class="line">  1.1 序列化器接受两个变量 from<span class="emphasis">_user_</span>id(integer) , to<span class="emphasis">_user_</span>id(integer)</span><br><span class="line">  1.2 序列化器的功能是 验证用户输入和创建关注关系</span><br><span class="line">  1.3 validate(self,attrs)用于排除自己关注自己的情况，升起异常ValidationError()</span><br><span class="line">  1.4 create用于创建关注关系，从validated<span class="emphasis">_data接受两个参数from_</span>user<span class="emphasis">_id,to_</span>user<span class="emphasis">_id，返回 Friendship.object.create()</span></span><br><span class="line"><span class="emphasis">2.设计 用于查询的序列化器，FollowerSerializer()和FollowingSerializer()，使用UserSerializerForFriendship(source=&#x27;from_</span>user&#x27;)</span><br><span class="line">3.设计 FriendshipViewSet</span><br><span class="line">  3.1 首先查询所有用户信息</span><br><span class="line">  3.2 定义followers 视图，方式是先查询to<span class="emphasis">_user_</span>id,再用序列化器展示数据，get方法，任何人都可以看到粉丝列表</span><br><span class="line">  3.3 定义followings 视图，方法同follower</span><br><span class="line">  3.4 定义follow视图</span><br><span class="line"><span class="code">      3.4.1 首先检查pk用户是否存在，self.get_object()</span></span><br><span class="line"><span class="code">      3.4.2 然后检查关注关系是否已建立，Friendship.object.filter()</span></span><br><span class="line"><span class="code">      3.4.3 然后把id传给序列化器 FollowSerializerForCreate</span></span><br><span class="line"><span class="code">      3.4.4 然后is_valid()检查有效性 </span></span><br><span class="line"><span class="code">      3.4.5 然后保存.save(),用FollowingsSerializer返回</span></span><br><span class="line"><span class="code">  3.5 定义 unfollow 视图 ，如果unfollow自己，返回400，否则 Friendship.object.filter().deleted(),返回deleted内容</span></span><br><span class="line"><span class="code"></span></span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://taoli-ax.github.io/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1friendship/" data-id="ckxagpeyf000rm4ux2hhhhhnd" data-title="【架构师】如何设计friendship" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Twitter%E6%9E%B6%E6%9E%84%E5%B8%88/" rel="tag">Twitter架构师</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="twitter项目理解-【架构师】如何设计你的tweet模块" class="h-entry article article-type-twitter项目理解" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%BD%A0%E7%9A%84tweet%E6%A8%A1%E5%9D%97/" class="article-date">
+  <time class="dt-published" datetime="2021-12-16T05:36:39.000Z" itemprop="datePublished">2021-12-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/twitter%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%B7%AF%E6%A2%B3%E7%90%86/">twitter项目思路梳理</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%BD%A0%E7%9A%84tweet%E6%A8%A1%E5%9D%97/">【架构师】如何设计你的tweet模块</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>用过twitter吗，如果你是架构师，你在设计的时候，你会定义哪些字段来记录推文？</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.首先设计tweets/model</span><br><span class="line">user</span><br><span class="line">content</span><br><span class="line">crated<span class="emphasis">_at</span></span><br><span class="line"><span class="emphasis">index_</span>together = ((&#x27;user&#x27;,&#x27;created<span class="emphasis">_at&#x27;),)</span></span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%BD%A0%E7%9A%84tweet%E6%A8%A1%E5%9D%97/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://taoli-ax.github.io/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%BD%A0%E7%9A%84tweet%E6%A8%A1%E5%9D%97/" data-id="ckxagpeyd000om4uxcjlh9bcg" data-title="【架构师】如何设计你的tweet模块" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Twitter%E6%9E%B6%E6%9E%84%E5%B8%88/" rel="tag">Twitter架构师</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-twitter项目" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/16/twitter%E9%A1%B9%E7%9B%AE/" class="article-date">
+  <time class="dt-published" datetime="2021-12-15T17:51:19.000Z" itemprop="datePublished">2021-12-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/twitter%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%88%86%E6%94%AF%E7%90%86%E8%A7%A3/">twitter项目的分支理解</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/16/twitter%E9%A1%B9%E7%9B%AE/">twitter项目的理解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>今天开始更新twitter项目的理解<br>按照git branch提交的来</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/12/16/twitter%E9%A1%B9%E7%9B%AE/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://taoli-ax.github.io/2021/12/16/twitter%E9%A1%B9%E7%9B%AE/" data-id="ckxagpeyg000vm4ux2zqn8azc" data-title="twitter项目的理解" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/9-1-newsfeed-fanout-followers-service/" rel="tag">9-1-newsfeed-fanout-followers-service</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/9-2-newsfeed-api-and-tests/" rel="tag">9-2-newsfeed-api-and-tests</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/9-newsfeed-model-and-admin/" rel="tag">9-newsfeed-model-and-admin</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-学习心态" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/14/%E5%AD%A6%E4%B9%A0%E5%BF%83%E6%80%81/" class="article-date">
+  <time class="dt-published" datetime="2021-12-14T09:44:29.000Z" itemprop="datePublished">2021-12-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/14/%E5%AD%A6%E4%B9%A0%E5%BF%83%E6%80%81/">学习心态</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>打游戏时，无所谓，释放了自己的紧张神经质<br>提起学习，还没有碰到，就已经神经起来了<br>所以趋利避害，我喜欢的是打游戏的状态，放松，失败也无所谓，不会放在心上<br>我怯惧学习的状态，遇到一点难题问题就心态爆炸，反观游戏时，对手越强就越兴奋，燃气斗志一争高下<br>喜欢看马斯克的发言，因为他已经富可敌国，但是他看起来就像个普通人，面对问题，钻研问题，好像钱不是他的目的一样。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://taoli-ax.github.io/2021/12/14/%E5%AD%A6%E4%B9%A0%E5%BF%83%E6%80%81/" data-id="ckxagpeyg000xm4uxe7gk5vl8" data-title="学习心态" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-django索引" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/11/django%E7%B4%A2%E5%BC%95/" class="article-date">
+  <time class="dt-published" datetime="2021-12-11T02:21:13.000Z" itemprop="datePublished">2021-12-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/11/django%E7%B4%A2%E5%BC%95/">django索引</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>今天开始更新django后端开发twitter系列，同时学习django和django rest framework</p>
+<p>索引的概念<br>foreigner key</p>
+<p>联合索引<br>index_together=((‘user’,’created_at’)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://taoli-ax.github.io/2021/12/11/django%E7%B4%A2%E5%BC%95/" data-id="ckxagpeyb000hm4uxh5drgkf7" data-title="django索引" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/" rel="tag">Django</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-pact工具" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/12/08/pact%E5%B7%A5%E5%85%B7/" class="article-date">
@@ -88,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/08/pact%E5%B7%A5%E5%85%B7/" data-id="ckx0o4kp9000s24uxbr504ui6" data-title="通过pact-python观察契约测试" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/08/pact%E5%B7%A5%E5%85%B7/" data-id="ckxagpeyk0012m4uxag6yhi3s" data-title="通过pact-python观察契约测试" class="article-share-link">Share</a>
       
       
       
@@ -140,7 +372,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/" data-id="ckx0o4kp9000u24ux6h0o0nf7" data-title="pinpoint部署" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/" data-id="ckxagpeya000dm4ux6az5631e" data-title="pinpoint部署" class="article-share-link">Share</a>
       
       
       
@@ -194,7 +426,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/03/Centos7-%E5%AE%89%E8%A3%85docker/" data-id="ckx0o4kp6000n24ux6mvz1rv7" data-title="Centos7 安装docker" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/03/Centos7-%E5%AE%89%E8%A3%85docker/" data-id="ckxagpey9000cm4uxhp8pe1ge" data-title="Centos7 安装docker" class="article-share-link">Share</a>
       
       
       
@@ -242,7 +474,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/" data-id="ckx0o4kow000324uxh7isdg5a" data-title="win10安装 Pact-python" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/" data-id="ckxagpey00001m4uxdt3803vq" data-title="win10安装 Pact-python" class="article-share-link">Share</a>
       
       
       
@@ -289,7 +521,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/02/pipline-bulid-groovy-useage/" data-id="ckx0o4kpa000w24uxbyrjaayy" data-title="pipeline build &amp; groovy useage" class="article-share-link">Share</a>
+      <a data-url="http://taoli-ax.github.io/2021/12/02/pipline-bulid-groovy-useage/" data-id="ckxagpeyh000zm4uxbe9xeg3y" data-title="pipeline build &amp; groovy useage" class="article-share-link">Share</a>
       
       
       
@@ -301,242 +533,12 @@
 
 
   
-    <article id="post-jenkins-plugins-speed-increse" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/12/02/jenkins-plugins-speed-increse/" class="article-date">
-  <time class="dt-published" datetime="2021-12-02T04:27:04.000Z" itemprop="datePublished">2021-12-02</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/12/02/jenkins-plugins-speed-increse/">jenkins plugins speed increase</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><font size="4">jenkins插件下载一般都很慢，防火墙太强</font></p>
-<p>解决方法是<code>替换镜像源</code><br><i>1.首先到jenkins的默认工作目录下</i><br><i>2.然后用sed命令</i></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost etc]# cd /var/lib/jenkins/updates/</span><br><span class="line">[root@localhost updates]# sed -i &#x27;s/http:\/\/updates.jenkins-ci.org\/download/https:\/\/mirrors.tuna.tsinghua.edu.cn\/jenkins/g&#x27; default.json &amp;&amp; sed -i &#x27;s/http:\/\/www.google.com/https:\/\/www.baidu.com/g&#x27; default.json</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/02/jenkins-plugins-speed-increse/" data-id="ckx0o4kp8000q24ux58snf4co" data-title="jenkins plugins speed increase" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Centos7下groovy安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/" class="article-date">
-  <time class="dt-published" datetime="2021-12-01T17:22:08.000Z" itemprop="datePublished">2021-12-02</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%B5%8B%E8%AF%95%E5%8F%B3%E7%A7%BB/">测试右移</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/">Centos7虚拟机下groovy安装</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>安装命令<br>curl -s get.sdkman.io | bash<br>source “/root/.sdkman/bin/sdkman-init.sh”<br>sdk install groovy</p>
-<p>检查版本<br> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# groovy --version</span><br><span class="line">Groovy Version: 3.0.9 JVM: 11.0.13 Vendor: Red Hat, Inc. OS: Linux</span><br></pre></td></tr></table></figure></p>
-<p>设置环境变量<br>export GROOVY_HOME=/usr/local/groovy-3.0.9<br>export PATH=${GROOVY_HOME}/bin:${PATH}</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/02/Centos7%E4%B8%8Bgroovy%E5%AE%89%E8%A3%85/" data-id="ckx0o4kot000124ux3v9uevnx" data-title="Centos7虚拟机下groovy安装" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Centos7-Groovy/" rel="tag">Centos7  Groovy</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-jenkins-install-deploy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/12/02/jenkins-install-deploy/" class="article-date">
-  <time class="dt-published" datetime="2021-12-01T16:08:08.000Z" itemprop="datePublished">2021-12-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/12/02/jenkins-install-deploy/">Centos7虚拟机部署jenkins</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <br>
-<font size="4"> 
-虚拟机已安装了 Centos7操作系统,省略<br>
-jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </font> <br>
-<font size="4"> 
-启动jenkins : 
-</font> 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# service jenkins start</span><br><span class="line">Starting jenkins (via systemctl):                          [  确定  ]</span><br></pre></td></tr></table></figure>
-<br>
-        
-          <p class="article-more-link">
-            <a href="/2021/12/02/jenkins-install-deploy/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/12/02/jenkins-install-deploy/" data-id="ckx0o4kp8000r24uxciqq88nk" data-title="Centos7虚拟机部署jenkins" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-deractor" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/11/28/deractor/" class="article-date">
-  <time class="dt-published" datetime="2021-11-28T12:37:10.000Z" itemprop="datePublished">2021-11-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/python%E8%AF%AD%E6%B3%95/">python语法</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/28/deractor/">了解Decorator</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><font size="4"> 1.装饰器是什么？ </font><br>@decorator</p>
-<p><font size="4">2.有什么作用？</font><br>项目中的主要用途：计算function的运算时间</p>
-<p><font size="4">3.如何写一个装饰器？</font><br>   例子：计算函数运行时间的装饰器demo</p>
-        
-          <p class="article-more-link">
-            <a href="/2021/11/28/deractor/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/11/28/deractor/" data-id="ckx0o4kp6000m24ux84anf6ys" data-title="了解Decorator" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-article-title" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/11/28/article-title/" class="article-date">
-  <time class="dt-published" datetime="2021-11-28T11:57:11.000Z" itemprop="datePublished">2021-11-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%96%B0%E6%8A%80%E6%9C%AF/">新技术</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/28/article-title/">article title</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在很久很久以前</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://taoli-ax.github.io/2021/11/28/article-title/" data-id="ckx0o4koz000724uxa6xa77fb" data-title="article title" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 </section>
         <aside id="sidebar">
   
@@ -544,7 +546,7 @@ jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </f
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7-Groovy/" rel="tag">Centos7  Groovy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pact/" rel="tag">pact</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B5%8B%E8%AF%95/" rel="tag">微服务测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" rel="tag">性能测试</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/9-1-newsfeed-fanout-followers-service/" rel="tag">9-1-newsfeed-fanout-followers-service</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/9-2-newsfeed-api-and-tests/" rel="tag">9-2-newsfeed-api-and-tests</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/9-newsfeed-model-and-admin/" rel="tag">9-newsfeed-model-and-admin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7-Groovy/" rel="tag">Centos7  Groovy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Twitter%E6%9E%B6%E6%9E%84%E5%B8%88/" rel="tag">Twitter架构师</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pact/" rel="tag">pact</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B5%8B%E8%AF%95/" rel="tag">微服务测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" rel="tag">性能测试</a></li></ul>
     </div>
   </div>
 
@@ -557,23 +559,23 @@ jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </f
       <ul>
         
           <li>
-            <a href="/2021/12/08/pact%E5%B7%A5%E5%85%B7/">通过pact-python观察契约测试</a>
+            <a href="/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1friendship/">【架构师】如何设计friendship</a>
           </li>
         
           <li>
-            <a href="/2021/12/08/pinpoint%E9%83%A8%E7%BD%B2/">pinpoint部署</a>
+            <a href="/2021/12/16/%E3%80%90%E6%9E%B6%E6%9E%84%E5%B8%88%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%BD%A0%E7%9A%84tweet%E6%A8%A1%E5%9D%97/">【架构师】如何设计你的tweet模块</a>
           </li>
         
           <li>
-            <a href="/2021/12/03/Centos7-%E5%AE%89%E8%A3%85docker/">Centos7 安装docker</a>
+            <a href="/2021/12/16/twitter%E9%A1%B9%E7%9B%AE/">twitter项目的理解</a>
           </li>
         
           <li>
-            <a href="/2021/12/02/Pact-python-%E5%AE%89%E8%A3%85/">win10安装 Pact-python</a>
+            <a href="/2021/12/14/%E5%AD%A6%E4%B9%A0%E5%BF%83%E6%80%81/">学习心态</a>
           </li>
         
           <li>
-            <a href="/2021/12/02/pipline-bulid-groovy-useage/">pipeline build &amp; groovy useage</a>
+            <a href="/2021/12/11/django%E7%B4%A2%E5%BC%95/">django索引</a>
           </li>
         
       </ul>
@@ -585,7 +587,7 @@ jenkins官网有基于Centos的安装命令，您可以直接输入，省略 </f
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/python%E8%AF%AD%E6%B3%95/">python语法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%B0%E6%8A%80%E6%9C%AF/">新技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B5%8B%E8%AF%95%E5%8F%B3%E7%A7%BB/">测试右移</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/python%E8%AF%AD%E6%B3%95/">python语法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/twitter%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%B7%AF%E6%A2%B3%E7%90%86/">twitter项目思路梳理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/twitter%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%88%86%E6%94%AF%E7%90%86%E8%A7%A3/">twitter项目的分支理解</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%B0%E6%8A%80%E6%9C%AF/">新技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B5%8B%E8%AF%95%E5%8F%B3%E7%A7%BB/">测试右移</a></li></ul>
     </div>
   </div>
 
